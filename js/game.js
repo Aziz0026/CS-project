@@ -1,7 +1,8 @@
 var game = {
   user: '',
   computer: '',
-  currentPlayer: ''
+  currentPlayer: '',
+  moves: 1
 };
 
 function setFigure(){
@@ -42,6 +43,7 @@ function play(cellId){
 function progress(curPlayer, nextPlayer, cellId){
   getElementById(cellId).textContent = curPlayer;
   getTextById(cellId).onClick = null;
+  game.moves++;
   gameStatus();
   setCurrentPlayer(nextPlayer);
 }
@@ -71,6 +73,8 @@ function gameStatus(){
     changeCellsBackground(0, 4, 8);
   }else if (getTextById(2) == currentPlayerChar && getTextById(4) == currentPlayerChar && getTextById(6) == currentPlayerChar) {
     changeCellsBackground(2, 4, 6);
+  }else if (game.moves == 9) {
+    console.log('draw');
   }
 }
 
