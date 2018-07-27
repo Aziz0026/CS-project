@@ -1,0 +1,99 @@
+body{
+  background: #7986CB;
+  color: #666;
+}
+h1{
+  text-align: center;
+  color: white;
+}
+.clearfix{
+  clear: both;
+}
+.success {
+    text-align: center;
+    width: 200;
+    height: 30;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+}
+.btn {
+    border: none;
+    background-color: inherit;
+    padding-top: 10;
+    padding-left: 30;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+.success:hover {
+    background-color: #42A5F5;
+    color: white;
+}
+#box{
+  width: 400px;
+  overflow: auto;
+  margin: 10px auto;
+  background: #2196F3;
+  padding-bottom: 20px;
+  border-radius: 15px;
+}
+#message{
+  background: #333;
+  color: #fff;
+}
+#gameBoard li{
+  float: left;
+  margin: 10px;
+  height: 90px;
+  width: 90px;
+  font-size: 50px;
+  background: black;
+  color: white;
+  list-style: none;
+  font-size: 60;
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 10;
+}
+#gameBoard li:hover{
+  cursor: pointer;
+  background: black;
+}
+#reset:hover{
+  cursor: poiner;
+  background: red;
+}
+#reset{
+  cursor: pointer;
+  border: 0;
+  background: black;
+  color: white;
+  width: 70%;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 25;
+}
+#back{
+  margin-left: 40;
+  margin-top: 20;
+  color: white;
+}
+.o{
+  color: green !important;
+}
+.x{
+  color: red !important;
+}
+.score{
+  text-align: left;
+  font-size: 18;
+  font-style: bold;
+  color: white;
+  margin-left: 320;
+}
+footer{
+  display: block;
+  text-align: center;
+  padding-top: 20px;
+}
