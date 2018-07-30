@@ -100,8 +100,8 @@ function gameStatus(){
   }else if (getTextById(2) == currentPlayerChar && getTextById(4) == currentPlayerChar && getTextById(6) == currentPlayerChar) {
     changeCellsBackground(2, 4, 6);
     game.status = 'off';
-  }else if (game.moves == 9) {
-    game.status = 'off';
+  }else if (game.moves == 9){
+    console.log("something");
   }
 }
 
