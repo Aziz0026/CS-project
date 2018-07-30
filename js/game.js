@@ -2,7 +2,13 @@ var game = {
   user: '',
   computer: '',
   currentPlayer: '',
-  moves: 1
+  moves: 1,
+  status: 'on'
+};
+
+var score = {
+  user: 0,
+  computer: 0
 };
 
 function setFigure(){
@@ -16,36 +22,49 @@ function setFigure(){
   }
 }
 
+function getPlayersFigures(player){
+  if(player == 'computer'){
+    document.getElementById('computer').textContent = "AI(" + game.computer + "): 0";
+  }else {
+    document.getElementById('user').textContent = "You(" + game.user + "): 0";
+  }
+}
+
 function setCurrentPlayer(currentPlayer){
   game.currentPlayer = currentPlayer;
 }
 
 function initMove(){
+  game.status = 'on';
   setFigure();
   randomCellId = Math.floor(Math.random() * 9);
   getElementById(randomCellId).textContent = game.computer;
   getElementById(randomCellId).onClick = null;
   setCurrentPlayer('user');
+  getPlayersFigures('computer');
+  getPlayersFigures('user');
 }
 
 function play(cellId){
-  if(game.currentPlayer == 'user'){
-    progress(game.user, 'computer', cellId);
-  }else if(game.currentPlayer == 'computer'){
-    progress(game.computer, 'user', cellId)
-  }
+  if(getTextById(cellId) == '#' && game.status == 'on'){
+    if(game.currentPlayer == 'user'){
+      progress(game.user, 'computer', cellId);
+    }else if(game.currentPlayer == 'computer'){
+      progress(game.computer, 'user', cellId)
+    }
 
-  if(game.currentPlayer == 'computer'){
-    compThinking();
+    if(game.currentPlayer == 'computer'){
+      compThinking();
+    }
   }
 }
 
 function progress(curPlayer, nextPlayer, cellId){
-  getElementById(cellId).textContent = curPlayer;
-  getTextById(cellId).onClick = null;
-  game.moves++;
-  gameStatus();
-  setCurrentPlayer(nextPlayer);
+    getElementById(cellId).textContent = curPlayer;
+    getTextById(cellId).onClick = null;
+    game.moves++;
+    gameStatus();
+    setCurrentPlayer(nextPlayer);
 }
 
 function gameStatus(){
@@ -59,23 +78,41 @@ function gameStatus(){
 
   if(getTextById(0) == currentPlayerChar && getTextById(1) == currentPlayerChar && getTextById(2) == currentPlayerChar){
     changeCellsBackground(0, 1, 2);
+    game.status = 'off';
   }else if (getTextById(3) == currentPlayerChar && getTextById(4) == currentPlayerChar && getTextById(5) == currentPlayerChar) {
     changeCellsBackground(3, 4, 5);
+    game.status = 'off';
   }else if (getTextById(6) == currentPlayerChar && getTextById(7) == currentPlayerChar && getTextById(8) == currentPlayerChar) {
     changeCellsBackground(6, 7, 8);
+    game.status = 'off';
   }else if (getTextById(0) == currentPlayerChar && getTextById(3) == currentPlayerChar && getTextById(6) == currentPlayerChar) {
     changeCellsBackground(0, 3, 6);
+    game.status = 'off';
   }else if (getTextById(1) == currentPlayerChar && getTextById(4) == currentPlayerChar && getTextById(7) == currentPlayerChar) {
     changeCellsBackground(1, 4, 7);
+    game.status = 'off';
   }else if (getTextById(2) == currentPlayerChar && getTextById(5) == currentPlayerChar && getTextById(8) == currentPlayerChar) {
-    changeBackground(2, 5, 8);
+    changeCellsBackground(2, 5, 8);
+    game.status = 'off';
   }else if (getTextById(0) == currentPlayerChar && getTextById(4) == currentPlayerChar && getTextById(8) == currentPlayerChar) {
     changeCellsBackground(0, 4, 8);
+    game.status = 'off';
   }else if (getTextById(2) == currentPlayerChar && getTextById(4) == currentPlayerChar && getTextById(6) == currentPlayerChar) {
     changeCellsBackground(2, 4, 6);
+    game.status = 'off';
   }else if (game.moves == 9) {
-    console.log('draw');
+    game.status = 'off';
   }
+}
+
+function reset(){
+  counter = 0;
+  while (counter != 9) {
+    document.getElementById(counter).textContent = '#';
+    document.getElementById(counter).style.backgroundColor = 'black';
+    counter++;
+  }
+  initMove();
 }
 
 function changeCellsBackground(x, y, z){
