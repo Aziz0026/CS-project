@@ -37,6 +37,10 @@ function setFigure(){
 function setScore(player){
   getElementById('computer').textContent  = "AI(" + game.computer + "): " + score.computer;
   getElementById('user').textContent = "You(" + game.user + "): " + score.user;
+  refreshDrawScore();
+}
+
+function refreshDrawScore(){
   getElementById('draw').textContent = "Draw: " + score.draw;
 }
 
@@ -80,7 +84,7 @@ function progress(curPlayer, nextPlayer, cellId){
 function gameStatus(){
   if(game.moves == 9){
     score.draw++;
-    setScore();
+    refreshDrawScore();
   }else{
     counter = 0;
     while(counter != 8){
