@@ -19,7 +19,8 @@ var winMoves = [
 
 var score = {
   user: 0,
-  computer: 0
+  computer: 0,
+  draw: 0
 };
 
 function setFigure(){
@@ -36,6 +37,7 @@ function setFigure(){
 function setScore(player){
   getElementById('computer').textContent  = "AI(" + game.computer + "): " + score.computer;
   getElementById('user').textContent = "You(" + game.user + "): " + score.user;
+  getElementById('draw').textContent = "Draw: " + score.draw;
 }
 
 function setCurrentPlayer(currentPlayer){
@@ -44,6 +46,7 @@ function setCurrentPlayer(currentPlayer){
 
 function initMove(){
   game.status = 'on';
+  game.moves = 1;
   setFigure();
   randomCellId = Math.floor(Math.random() * 9);
   getElementById(randomCellId).textContent = game.computer;
@@ -75,15 +78,21 @@ function progress(curPlayer, nextPlayer, cellId){
 }
 
 function gameStatus(){
-  counter = 0;
-  while(counter != 8){
-    if(checkForWin(winMoves[counter])){
-      changeCellsBackground(winMoves[counter]);
-      incrementScore();
-      game.status = 'off';
-      break;
+  if(game.moves == 9){
+    score.draw++;
+    setScore();
+  }else{
+    counter = 0;
+    while(counter != 8){
+      if(checkForWin(winMoves[counter])){
+        changeCellsBackground(winMoves[counter]);
+        incrementScore();
+        setScore();
+        game.status = 'off';
+        break;
+      }
+      counter++;
     }
-    counter++;
   }
 }
 
@@ -100,7 +109,6 @@ function checkForWin(array){
     return true;
   }
   return false;
-  console.log('false');
 }
 
 function reset(){
