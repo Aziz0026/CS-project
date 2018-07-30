@@ -76,16 +76,13 @@ function play(cellId){
 function progress(curPlayer, nextPlayer, cellId){
     getElementById(cellId).textContent = curPlayer;
     getTextById(cellId).onClick = null;
-    game.moves++;
     gameStatus();
+    game.moves++;
     setCurrentPlayer(nextPlayer);
 }
 
 function gameStatus(){
-  if(game.moves == 9){
-    score.draw++;
-    refreshDrawScore();
-  }else{
+  if(game.moves != 9){
     counter = 0;
     while(counter != 8){
       if(checkForWin(winMoves[counter])){
@@ -97,6 +94,9 @@ function gameStatus(){
       }
       counter++;
     }
+  }else{
+    score.draw++;
+    refreshDrawScore();
   }
 }
 
