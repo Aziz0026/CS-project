@@ -50,7 +50,6 @@ function setCurrentPlayer(currentPlayer){
 
 function initMove(){
   game.status = 'on';
-  game.moves = 1;
   setFigure();
   randomCellId = Math.floor(Math.random() * 9);
   getElementById(randomCellId).textContent = game.computer;
@@ -67,9 +66,13 @@ function play(cellId){
       progress(game.computer, 'user', cellId)
     }
 
+    game.moves++;
+    checkForDraw();
+
     if(game.currentPlayer == 'computer'){
       compThinking();
     }
+
   }
 }
 
@@ -77,12 +80,11 @@ function progress(curPlayer, nextPlayer, cellId){
     getElementById(cellId).textContent = curPlayer;
     getTextById(cellId).onClick = null;
     gameStatus();
-    game.moves++;
+    checkForDraw();
     setCurrentPlayer(nextPlayer);
 }
 
 function gameStatus(){
-  if(game.moves != 9){
     counter = 0;
     while(counter != 8){
       if(checkForWin(winMoves[counter])){
@@ -90,11 +92,15 @@ function gameStatus(){
         incrementScore();
         setScore();
         game.status = 'off';
+        game.moves--;
         break;
       }
-      counter++;
-    }
-  }else{
+    counter++;
+  }
+}
+
+function checkForDraw(){
+  if(game.moves == 9){
     score.draw++;
     refreshDrawScore();
   }
@@ -122,6 +128,7 @@ function reset(){
     document.getElementById(counter).style.backgroundColor = 'black';
     counter++;
   }
+  game.moves = 1;
   initMove();
 }
 
