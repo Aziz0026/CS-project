@@ -1,30 +1,28 @@
-let
-    game = {
-        user: '',
-        computer: '',
-        currentPlayer: '',
-        moves: 1,
-        status: 'on'
-    };
+let game = {
+    user: '',
+    computer: '',
+    currentPlayer: '',
+    moves: 1,
+    status: 'on',
+    turn: 'user'
+};
 
-let
-    winMoves = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ];
+let winMoves = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+];
 
-let
-    score = {
-        user: 0,
-        computer: 0,
-        draw: 0
-    };
+let score = {
+    user: 0,
+    computer: 0,
+    draw: 0
+};
 
 function setFigure() {
     let random = Math.floor(Math.random() * 2);
@@ -144,14 +142,16 @@ function changeCellsBackground(array) {
 }
 
 function compThinking() {
-    let counter = 0;
+    /*let counter = 0;
     while (counter !== 9) {
         if (checkingForEmptyCell(counter)) {
             play(counter);
             break;
         }
         counter++;
-    }
+    }*/
+
+    play(minimax(getCurrentBoard(), game.computer).index);
 }
 
 function incrementScore() {
@@ -166,18 +166,24 @@ function getCurrentBoard() {
     let currentBoard = [];
     let counter = 0;
     while (counter !== 9) {
-        currentBoard.push(getTextById(counter));
+        if (getTextById(counter) === "#") {
+            currentBoard.push(counter);
+        } else {
+            currentBoard.push(getTextById(counter));
+        }
         counter++;
     }
     return currentBoard;
 }
 
-function checkingForEmptyCell(cellId) {
-    let cellText = getTextById(cellId)
+function checkingForEmptyCells(board) {
+    return board.filter(s => s != "O" && s != "X");
+
+    /*let cellText = getTextById(cellId)
     if (cellText !== game.user && cellText !== game.computer) {
         return true;
     }
-    return false;
+    return false;*/
 }
 
 function getElementById(id) {
@@ -188,3 +194,79 @@ function getTextById(id) {
     return document.getElementById(id).textContent
 }
 
+// the main minimax function
+function minimax(newBoard, player) {
+
+    var availSpots = checkingForEmptyCells(newBoard);
+
+    if (winning(newBoard, game.user)) {
+        return {score: -10};
+    }
+    else if (winning(newBoard, game.computer)) {
+        return {score: 10};
+    }
+    else if (availSpots.length === 0) {
+        return {score: 0};
+    }
+
+    var moves = [];
+
+    for (var i = 0; i < availSpots.length; i++) {
+        var move = {};
+        move.index = newBoard[availSpots[i]];
+
+        newBoard[availSpots[i]] = player;
+
+        if (player === game.computer) {
+            var result = minimax(newBoard, game.user);
+            move.score = result.score;
+        }
+        else {
+            var result = minimax(newBoard, game.computer);
+            move.score = result.score;
+        }
+
+        newBoard[availSpots[i]] = move.index;
+
+        moves.push(move);
+    }
+
+    var bestMove;
+    if (player === game.computer) {
+        var bestScore = -10000;
+        for (var i = 0; i < moves.length; i++) {
+            if (moves[i].score > bestScore) {
+                bestScore = moves[i].score;
+                bestMove = i;
+            }
+        }
+    } else {
+
+        var bestScore = 10000;
+        for (var i = 0; i < moves.length; i++) {
+            if (moves[i].score < bestScore) {
+                bestScore = moves[i].score;
+                bestMove = i;
+            }
+        }
+    }
+
+    return moves[bestMove];
+}
+
+function winning(board, playerChar) {
+    if (
+        (board[0] === playerChar && board[1] === playerChar && board[2] === playerChar) ||
+        (board[3] === playerChar && board[4] === playerChar && board[5] === playerChar) ||
+        (board[6] === playerChar && board[7] === playerChar && board[8] === playerChar) ||
+        (board[0] === playerChar && board[3] === playerChar && board[6] === playerChar) ||
+        (board[1] === playerChar && board[4] === playerChar && board[7] === playerChar) ||
+        (board[2] === playerChar && board[5] === playerChar && board[8] === playerChar) ||
+        (board[0] === playerChar && board[4] === playerChar && board[8] === playerChar) ||
+        (board[2] === playerChar && board[4] === playerChar && board[6] === playerChar)
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+}
