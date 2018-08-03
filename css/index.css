@@ -11,8 +11,8 @@ h1{
 }
 .success {
     text-align: center;
-    width: 200;
-    height: 30;
+    width: 200px;
+    height: 30px;
     color: white;
     cursor: pointer;
     border-radius: 6px;
@@ -20,8 +20,8 @@ h1{
 .btn {
     border: none;
     background-color: inherit;
-    padding-top: 10;
-    padding-left: 30;
+    padding-top: 10px;
+    padding-left: 30px;
     font-size: 16px;
     cursor: pointer;
     display: inline-block;
@@ -47,14 +47,12 @@ h1{
   margin: 10px;
   height: 90px;
   width: 90px;
-  font-size: 50px;
   background: black;
   color: white;
   list-style: none;
-  font-size: 60;
+  font-size: 60px;
   text-align: center;
   border-radius: 5px;
-  margin-top: 10;
 }
 #gameBoard li:hover{
   cursor: pointer;
@@ -72,11 +70,11 @@ h1{
   width: 70%;
   padding: 15px;
   border-radius: 5px;
-  font-size: 25;
+  font-size: 25px;
 }
 #back{
-  margin-left: 40;
-  margin-top: 20;
+  margin-left: 40px;
+  margin-top: 20px;
   color: white;
 }
 .o{
@@ -87,10 +85,10 @@ h1{
 }
 .score{
   text-align: left;
-  font-size: 18;
+  font-size: 18px;
   font-style: bold;
   color: white;
-  margin-left: 320;
+  margin-left: 320px;
 }
 footer{
   display: block;
