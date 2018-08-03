@@ -2,9 +2,9 @@ let game = {
     user: '',
     computer: '',
     currentPlayer: '',
-    moves: 1,
+    moves: 0,
     status: 'on',
-    turn: 'user'
+    turn: 'computer'
 };
 
 let winMoves = [
@@ -38,10 +38,10 @@ function setFigure() {
 function setScore() {
     getElementById('computer').textContent = "AI(" + game.computer + "): " + score.computer;
     getElementById('user').textContent = "You(" + game.user + "): " + score.user;
-    refreshDrawScore();
+    getDrawScore();
 }
 
-function refreshDrawScore() {
+function getDrawScore() {
     getElementById('draw').textContent = "Draw: " + score.draw;
 }
 
@@ -49,36 +49,37 @@ function setCurrentPlayer(currentPlayer) {
     game.currentPlayer = currentPlayer;
 }
 
-function initMove() {
+function startOfTheGame() {
     game.status = 'on';
     setFigure();
-    let randomCellId = Math.floor(Math.random() * 9);
-    getElementById(randomCellId).textContent = game.computer;
-    getElementById(randomCellId).onClick = null;
-    setCurrentPlayer('user');
+    if(game.turn === 'computer'){
+        let randomCellId = Math.floor(Math.random() * 9);
+        getElementById(randomCellId).textContent = game.computer;
+        game.moves++;
+        setCurrentPlayer('user');
+    }
     setScore();
 }
 
-function play(cellId) {
+function move(cellId) {
     if (getTextById(cellId) === '#' && game.status === 'on') {
         if (game.currentPlayer === 'user') {
-            progress(game.user, 'computer', cellId);
+            gameProgress(game.user, 'computer', cellId);
         } else if (game.currentPlayer === 'computer') {
-            progress(game.computer, 'user', cellId)
+            gameProgress(game.computer, 'user', cellId)
         }
 
         game.moves++;
         checkForDraw();
 
-        if (game.currentPlayer === 'computer') {
+        if (game.currentPlayer === 'computer' && game.status === 'on') {
             compThinking();
         }
     }
 }
 
-function progress(curPlayer, nextPlayer, cellId) {
+function gameProgress(curPlayer, nextPlayer, cellId) {
     getElementById(cellId).textContent = curPlayer;
-    getTextById(cellId).onClick = null;
     gameStatus();
     checkForDraw();
     setCurrentPlayer(nextPlayer);
@@ -102,7 +103,8 @@ function gameStatus() {
 function checkForDraw() {
     if (game.moves === 9) {
         score.draw++;
-        refreshDrawScore();
+        game.status = 'off'
+        getDrawScore();
     }
 }
 
@@ -126,8 +128,13 @@ function reset() {
         document.getElementById(counter.toString()).style.backgroundColor = 'black';
         counter++;
     }
-    game.moves = 1;
-    initMove();
+    game.moves = 0;
+    if(game.turn === 'computer'){
+        game.turn = 'user'
+    }else{
+        game.turn = 'computer';
+    }
+    startOfTheGame();
 }
 
 function changeCellsBackground(array) {
@@ -140,16 +147,7 @@ function changeCellsBackground(array) {
 }
 
 function compThinking() {
-    /*let counter = 0;
-    while (counter !== 9) {
-        if (checkingForEmptyCell(counter)) {
-            play(counter);
-            break;
-        }
-        counter++;
-    }*/
-
-    play(minimax(getCurrentBoard(), game.computer).index);
+    move(minimax(getCurrentBoard(), game.computer).index);
 }
 
 function incrementScore() {
@@ -176,12 +174,6 @@ function getCurrentBoard() {
 
 function checkingForEmptyCells(board) {
     return board.filter(s => s !== "O" && s !== "X");
-
-    /*let cellText = getTextById(cellId)
-    if (cellText !== game.user && cellText !== game.computer) {
-        return true;
-    }
-    return false;*/
 }
 
 function getElementById(id) {
