@@ -115,17 +115,15 @@ function checkForWin(array) {
         currentPlayerChar = game.computer;
     }
 
-    if (getTextById(array[0]) === currentPlayerChar && getTextById(array[1]) === currentPlayerChar && getTextById(array[2]) === currentPlayerChar) {
-        return true;
-    }
-    return false;
+    return getTextById(array[0]) === currentPlayerChar && getTextById(array[1]) === currentPlayerChar && getTextById(array[2]) === currentPlayerChar;
+
 }
 
 function reset() {
     let counter = 0;
     while (counter !== 9) {
-        document.getElementById(counter).textContent = '#';
-        document.getElementById(counter).style.backgroundColor = 'black';
+        document.getElementById(counter.toString()).textContent = '#';
+        document.getElementById(counter.toString()).style.backgroundColor = 'black';
         counter++;
     }
     game.moves = 1;
@@ -135,7 +133,7 @@ function reset() {
 function changeCellsBackground(array) {
     let counter = 0;
     while (counter !== 3) {
-        let element = getElementById(array[counter])
+        let element = getElementById(array[counter]);
         element.style.backgroundColor = '#14e715';
         counter++;
     }
@@ -177,7 +175,7 @@ function getCurrentBoard() {
 }
 
 function checkingForEmptyCells(board) {
-    return board.filter(s => s != "O" && s != "X");
+    return board.filter(s => s !== "O" && s !== "X");
 
     /*let cellText = getTextById(cellId)
     if (cellText !== game.user && cellText !== game.computer) {
@@ -194,10 +192,9 @@ function getTextById(id) {
     return document.getElementById(id).textContent
 }
 
-// the main minimax function
 function minimax(newBoard, player) {
 
-    var availSpots = checkingForEmptyCells(newBoard);
+    let availSpots = checkingForEmptyCells(newBoard);
 
     if (winning(newBoard, game.user)) {
         return {score: -10};
@@ -209,20 +206,20 @@ function minimax(newBoard, player) {
         return {score: 0};
     }
 
-    var moves = [];
+    let moves = [];
 
-    for (var i = 0; i < availSpots.length; i++) {
-        var move = {};
+    for (let i = 0; i < availSpots.length; i++) {
+        let move = {};
         move.index = newBoard[availSpots[i]];
 
         newBoard[availSpots[i]] = player;
 
         if (player === game.computer) {
-            var result = minimax(newBoard, game.user);
+            let result = minimax(newBoard, game.user);
             move.score = result.score;
         }
         else {
-            var result = minimax(newBoard, game.computer);
+            let result = minimax(newBoard, game.computer);
             move.score = result.score;
         }
 
@@ -231,10 +228,10 @@ function minimax(newBoard, player) {
         moves.push(move);
     }
 
-    var bestMove;
+    let bestMove;
     if (player === game.computer) {
-        var bestScore = -10000;
-        for (var i = 0; i < moves.length; i++) {
+        let bestScore = -10000;
+        for (let i = 0; i < moves.length; i++) {
             if (moves[i].score > bestScore) {
                 bestScore = moves[i].score;
                 bestMove = i;
@@ -242,8 +239,8 @@ function minimax(newBoard, player) {
         }
     } else {
 
-        var bestScore = 10000;
-        for (var i = 0; i < moves.length; i++) {
+        let bestScore = 10000;
+        for (let i = 0; i < moves.length; i++) {
             if (moves[i].score < bestScore) {
                 bestScore = moves[i].score;
                 bestMove = i;
@@ -255,18 +252,12 @@ function minimax(newBoard, player) {
 }
 
 function winning(board, playerChar) {
-    if (
-        (board[0] === playerChar && board[1] === playerChar && board[2] === playerChar) ||
+    return (board[0] === playerChar && board[1] === playerChar && board[2] === playerChar) ||
         (board[3] === playerChar && board[4] === playerChar && board[5] === playerChar) ||
         (board[6] === playerChar && board[7] === playerChar && board[8] === playerChar) ||
         (board[0] === playerChar && board[3] === playerChar && board[6] === playerChar) ||
         (board[1] === playerChar && board[4] === playerChar && board[7] === playerChar) ||
         (board[2] === playerChar && board[5] === playerChar && board[8] === playerChar) ||
         (board[0] === playerChar && board[4] === playerChar && board[8] === playerChar) ||
-        (board[2] === playerChar && board[4] === playerChar && board[6] === playerChar)
-    ) {
-        return true;
-    } else {
-        return false;
-    }
+        (board[2] === playerChar && board[4] === playerChar && board[6] === playerChar);
 }
