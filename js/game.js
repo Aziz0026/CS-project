@@ -7,7 +7,7 @@ let game = {
     turn: 'computer'
 };
 
-let winMoves = [
+var winMoves = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -103,7 +103,7 @@ function gameStatus() {
 function checkForDraw() {
     if (game.moves === 9) {
         score.draw++;
-        game.status = 'off'
+        game.status = 'off';
         getDrawScore();
     }
 }
@@ -244,12 +244,14 @@ function minimax(newBoard, player) {
 }
 
 function winning(board, playerChar) {
-    return (board[0] === playerChar && board[1] === playerChar && board[2] === playerChar) ||
-        (board[3] === playerChar && board[4] === playerChar && board[5] === playerChar) ||
-        (board[6] === playerChar && board[7] === playerChar && board[8] === playerChar) ||
-        (board[0] === playerChar && board[3] === playerChar && board[6] === playerChar) ||
-        (board[1] === playerChar && board[4] === playerChar && board[7] === playerChar) ||
-        (board[2] === playerChar && board[5] === playerChar && board[8] === playerChar) ||
-        (board[0] === playerChar && board[4] === playerChar && board[8] === playerChar) ||
-        (board[2] === playerChar && board[4] === playerChar && board[6] === playerChar);
+      counter = 0;
+      while(counter <= 7){
+        winMove = winMoves[counter];
+
+        if(board[winMove[0]] === playerChar && board[winMove[1]] === playerChar && board[winMove[2]] === playerChar){
+          return true;
+        }
+        counter++;
+      }
+      return false;
 }
