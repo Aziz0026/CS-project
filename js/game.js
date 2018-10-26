@@ -85,6 +85,15 @@ function gameProgress(curPlayer, nextPlayer, cellId) {
     setCurrentPlayer(nextPlayer);
 }
 
+function redraw(array){
+    let counter = 0;
+    while(counter <= 8){
+        let element = getElementById(counter);
+        element.textContent = array[counter];
+        counter++;
+    }
+}
+
 function gameStatus() {
     let counter = 0;
     while (counter !== 8) {
