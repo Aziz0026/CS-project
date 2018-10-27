@@ -2,14 +2,20 @@ body {
     background: #7986CB;
     color: white;
     text-align: center;
+    vertical-align: middle;
 }
 #text{
-	font-size: 25px;
+	font-size: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  vertical-align: middle;
 }
 #header {
-	font-size: 30px;
+	font-size: 80px;
 	margin-top: 100px;
 	font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  vertical-align: middle;
 }
 #box{
 	text-align: left;
