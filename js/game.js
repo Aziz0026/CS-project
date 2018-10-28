@@ -7,7 +7,7 @@ let game = {
     turn: 'computer'
 };
 
-var winMoves = [
+const winMoves = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -253,14 +253,15 @@ function minimax(newBoard, player) {
 }
 
 function winning(board, playerChar) {
-      counter = 0;
-      while(counter <= 7){
+    let counter = 0;
+    let winMove;
+    while (counter <= 7) {
         winMove = winMoves[counter];
 
-        if(board[winMove[0]] === playerChar && board[winMove[1]] === playerChar && board[winMove[2]] === playerChar){
-          return true;
+        if(board[winMove[0]] === playerChar && board[winMove[1]] === playerChar && board[winMove[2]] === playerChar) {
+            return true;
         }
         counter++;
-      }
+    }
       return false;
 }
