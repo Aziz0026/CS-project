@@ -13,6 +13,6 @@ function replaceFilename(newFile, oldFile) {
     window.open(newUrl, '_self');
 }
 
-function backToMenu() {
-    replaceFilename('menu.html', 'index.html');
+function backToMenu(fileName) {
+    replaceFilename('menu.html', fileName);
 }
