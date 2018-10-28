@@ -6,6 +6,10 @@ function openSingleplayerGame(filename) {
     replaceFilename('index.html', 'menu.html');
 };
 
+function openMultiplayerGame(filename) {
+  replaceFilename('multiplayer.html', 'menu.html');
+};
+
 function replaceFilename(newFile, oldFile) {
     var re = oldFile;
     var currnetUrl = window.location.href;
@@ -15,4 +19,5 @@ function replaceFilename(newFile, oldFile) {
 
 function backToMenu() {
     replaceFilename('menu.html', 'index.html');
+    replaceFilename('menu.html', 'multiplayer.html');
 }
