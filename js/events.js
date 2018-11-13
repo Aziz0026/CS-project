@@ -2,13 +2,9 @@ function openMenu() {
     replaceFilename('menu.html', 'welcome.html');
 };
 
-function openSingleplayerGame(filename) {
-    replaceFilename('index.html', 'menu.html');
-};
-
-function openMultiplayerGame(filename) {
-  replaceFilename('multiplayer.html', 'menu.html');
-};
+function openPage(filename){
+    replaceFilename(filename, 'menu.html');
+}
 
 function replaceFilename(newFile, oldFile) {
     var re = oldFile;
