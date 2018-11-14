@@ -5,7 +5,6 @@ let game = {
     moves: 0,
     status: 'on',
     turn: 'computer',
-    mode: ''
 };
 
 const winMoves = [
@@ -253,10 +252,12 @@ function minimax(newBoard, player) {
     return moves[bestMove];
 }
 
-//choosing single player or multi player mode
-function changeGameMode(modeName) {
-    game.mode = modeName;
-    console.log(game.mode);
+function changeTitle(titleName){
+    document.write('<head><title>' + mode + '</title></head>');
+}
+
+function changeMode(gameMode){
+    sessionStorage.setItem('mode', gameMode);
 }
 
 function winning(board, playerChar) {

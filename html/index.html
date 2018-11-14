@@ -2,13 +2,11 @@
 <script src="../js/events.js"></script>
 <script src="../js/game.js"></script>
 
-<head>
-    <title>Singleplayer</title>
-</head>
 <body>
 <div class="btn">
-    <h2 class="success" onclick="backToMenu('index.html')">Back to menu</h2>
+    <h2 class="success" onclick="openPage('menu.html', 'index.html')">Back to menu</h2>
 </div>
+
 <div class="text-center" id="box">
     <header>
         <h1>Play Tic Tac Toe</h1>
@@ -50,5 +48,11 @@
 </body>
 
 <script type="text/javascript">
-    startOfTheGame();
+    mode = sessionStorage.getItem('mode');
+
+    if (mode === 'Singleplayer') {
+        startOfTheGame();
+    }
+
+    changeTitle(mode);
 </script>
