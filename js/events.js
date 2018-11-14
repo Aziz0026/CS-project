@@ -1,7 +1,3 @@
-function openMenu() {
-    replaceFilename('menu.html', 'welcome.html');
-};
-
 function openPage(filename, from){
     replaceFilename(filename, from);
 }
