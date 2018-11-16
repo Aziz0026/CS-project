@@ -253,7 +253,7 @@ function minimax(newBoard, player) {
 }
 
 function changeTitle(titleName){
-    document.write('<head><title>' + mode + '</title></head>');
+    document.write('<head><title>' + titleName + '</title></head>');
 }
 
 function changeMode(gameMode){

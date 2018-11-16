@@ -2,57 +2,67 @@
 <script src="../js/events.js"></script>
 <script src="../js/game.js"></script>
 
-<body>
-<div class="btn">
-    <h2 class="success" onclick="openPage('menu.html', 'index.html')">Back to menu</h2>
-</div>
-
-<div class="text-center" id="box">
-    <header>
-        <h1>Play Tic Tac Toe</h1>
-    </header>
-    <div id="message"></div>
-    <ul id="gameBoard">
-        <li class="tic" id="0" onclick="move(this.id)">#</li>
-        <li class="tic" id="1" onclick="move(this.id)">#</li>
-        <li class="tic" id="2" onclick="move(this.id)">#</li>
-        <li class="tic" id="3" onclick="move(this.id)">#</li>
-        <li class="tic" id="4" onclick="move(this.id)">#</li>
-        <li class="tic" id="5" onclick="move(this.id)">#</li>
-        <li class="tic" id="6" onclick="move(this.id)">#</li>
-        <li class="tic" id="7" onclick="move(this.id)">#</li>
-        <li class="tic" id="8" onclick="move(this.id)">#</li>
-    </ul>
-    <div class="clearfix"></div>
-    <footer>
-        <button id="reset" onclick="reset()">Reset</button>
-    </footer>
-</div>
-<div>
-    <h1>Scores</h1>
-    <header class="score">
-        <h2>
-            <span id="user">
-            </span>
-        </h2>
-        <h2>
-            <span id="computer">
-            </span>
-        </h2>
-        <h2>
-            <span id="draw">
-            </span>
-        </h2>
-    </header>
-</div>
-</body>
-
-<script type="text/javascript">
+<script>
+    //getting mode from session storage
     mode = sessionStorage.getItem('mode');
+    fromPage = 'index.html';
+    toPage = '';
+
+    //checking for game mode (multi player or single player)
+    if (mode === 'Singleplayer') {
+        toPage = 'menu.html';
+    } else {
+        toPage = 'multiplayer.html';
+    }
+
+    //starting of the body tag
+    document.write('<body>');
+
+    //back button
+    document.write('<div class="btn"><h2 class="success" onclick="openPage(toPage, fromPage)">Back to menu</h2></div>');
+
+    counter = 0;
+
+    //grid with header
+    document.write(
+        '<div class="text-center" id="box">' +
+        '<header><h1>Play Tic Tac Toe</h1></header>' +
+        '<ul id="gameBoard"> ' +
+        '<li class="tic" id="0" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="1" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="2" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="3" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="4" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="5" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="6" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="7" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="8" onclick="move(this.id)">#</li>' +
+        '</ul>'
+    );
+
+    //footer
+    document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
+
+    //TODO
+    //scores table
+    document.write(
+        '<div id=""><h1>Scores</h1>' +
+        '<header class="score">' +
+        '<h2><span id="user"></span></h2>' +
+        '<h2><span id="computer"></span></h2>' +
+        '<h2 id="draw"></h2>' +
+        '</header>' +
+        '</div>'
+    );
 
     if (mode === 'Singleplayer') {
         startOfTheGame();
     }
 
+    //changing tab name depending on game mode (single player or multi player)
     changeTitle(mode);
+
+    //ending of body tag
+    document.write('</body>');
+
 </script>
