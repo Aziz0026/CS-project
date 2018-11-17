@@ -35,6 +35,10 @@ function setFigure() {
     }
 }
 
+function setTurn(nextPlayer) {
+    game.turn = nextPlayer;
+}
+
 function setScore() {
     getElementById('computer').textContent = "AI(" + game.computer + "): " + score.computer;
     getElementById('user').textContent = "You(" + game.user + "): " + score.user;
@@ -50,7 +54,7 @@ function setCurrentPlayer(currentPlayer) {
 }
 
 function startOfTheGame() {
-    game.status = 'on';
+    changeGameStatus('on');
     setFigure();
     if(game.turn === 'computer'){
         let randomCellId = Math.floor(Math.random() * 9);
@@ -59,6 +63,10 @@ function startOfTheGame() {
         setCurrentPlayer('user');
     }
     setScore();
+}
+
+function changeGameStatus(status) {
+    game.status = status;
 }
 
 function move(cellId) {
@@ -101,7 +109,7 @@ function gameStatus() {
             changeCellsBackground(winMoves[counter]);
             incrementScore();
             setScore();
-            game.status = 'off';
+            changeGameStatus('off');
             game.moves--;
             break;
         }
@@ -112,7 +120,7 @@ function gameStatus() {
 function checkForDraw() {
     if (game.moves === 9) {
         score.draw++;
-        game.status = 'off';
+        changeGameStatus('off');
         getDrawScore();
     }
 }
@@ -250,6 +258,36 @@ function minimax(newBoard, player) {
     }
 
     return moves[bestMove];
+}
+
+function drawScores() {
+    document.write(
+        '<div id=""><h1>Scores</h1>' +
+        '<header class="score">' +
+        '<h2><span id="user"></span></h2>' +
+        '<h2><span id="computer"></span></h2>' +
+        '<h2 id="draw"></h2>' +
+        '</header>' +
+        '</div>'
+    );
+}
+
+function drawGrid() {
+    document.write(
+        '<div class="text-center" id="box">' +
+        '<header><h1>Play Tic Tac Toe</h1></header>' +
+        '<ul id="gameBoard"> ' +
+        '<li class="tic" id="0" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="1" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="2" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="3" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="4" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="5" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="6" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="7" onclick="move(this.id)">#</li>' +
+        '<li class="tic" id="8" onclick="move(this.id)">#</li>' +
+        '</ul>'
+    );
 }
 
 function changeTitle(titleName){

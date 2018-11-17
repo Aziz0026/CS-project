@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="../css/index.css">
+<script src="../js/events.js"></script>
+<script src="../js/game.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multiplayer</title>
+</head>
+
+<script>
+    document.write('<body>');
+
+    document.write('<div id="back"><h2 class="success" onclick="openPage(\'multiplayer.html\', \'room.html\')">Back to menu</h2></div>');
+
+    drawGrid();
+
+    document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
+
+    drawScores();
+
+    document.write('</body>');
+
+    changeGameStatus('on');
+    setCurrentPlayer('user');
+    setTurn('user');
+</script>
+</html>
