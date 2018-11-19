@@ -1,0 +1,31 @@
+body {
+    font-family: Arial;
+    color: white;
+}
+
+.split {
+    height: 100%;
+    width: 80%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.left {
+    left: 0;
+    background-color: #FFA000;
+    border-top: 5px solid black;
+}
+
+.right {
+    right: 0;
+    background-image: url('https://img.ibxk.com.br///2016/09/13/13162448904561-t1200x480.jpg');
+    border-left: 5px solid black;
+    border-top: 5px solid black;
+}
+
+#name{
+    margin-left: 80px;
+}

@@ -2,32 +2,31 @@
 <script src="../js/events.js"></script>
 <script src="../js/game.js"></script>
 
-<script>
-    //getting mode from session storage
-    mode = sessionStorage.getItem('mode');
+<div class="split right">
+    <div class="">
+        <script>
+            //starting of the body tag
+            document.write('<body>');
 
-    //starting of the body tag
-    document.write('<body>');
+            //getting mode from session storage
+            mode = sessionStorage.getItem('mode');
 
-    //back button
-    document.write('<div id="back"><h2 class="success" onclick="openPage(\'menu.html\', \'index.html\')">Back to menu</h2></div>');
+            document.write('<div id="back"><h3 class="success" onclick="openPage(\'menu.html\', \'index.html\')">Back to menu</h3></div>');
 
-    //grid with header
-    drawGrid();
+            drawGrid();
 
-    //footer
-    document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
+            document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
 
-    //TODO
-    //scores table
-    drawScores();
+            drawScores();
 
-    //start of the game
-    startOfTheGame();
+            //start of the game
+            startOfTheGame();
 
-    //changing tab name depending on game mode (single player or multi player)
-    changeTitle(mode);
+            //changing tab name depending on game mode (single player or multi player)
+            changeTitle(mode);
 
-    //ending of body tag
-    document.write('</body>');
-</script>
+            //ending of body tag
+            document.write('</body>');
+        </script>
+    </div>
+</div>

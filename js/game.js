@@ -18,6 +18,7 @@ const winMoves = [
     [2, 4, 6]
 ];
 
+
 let score = {
     user: 0,
     computer: 0,

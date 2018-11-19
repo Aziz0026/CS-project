@@ -1,14 +1,18 @@
-function openPage(filename, from){
+function openPage(filename, from) {
     replaceFilename(filename, from);
 }
 
 function replaceFilename(newFile, oldFile) {
-    var re = oldFile;
-    var currnetUrl = window.location.href;
-    var newUrl = currnetUrl.replace(re, newFile);
+    let re = oldFile;
+    let currentUrl = window.location.href;
+    let newUrl = currentUrl.replace(re, newFile);
     window.open(newUrl, '_self');
 }
 
-function backToMenu(fileName) {
-    replaceFilename('menu.html', fileName);
+function getName() {
+    let person = prompt('Please, enter your name:');
+
+    openPage('room.html', 'multiplayer.html');
+
+    sessionStorage.setItem('name', person);
 }
