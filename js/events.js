@@ -12,7 +12,22 @@ function replaceFilename(newFile, oldFile) {
 function getName() {
     let person = prompt('Please, enter your name:');
 
-    openPage('room.html', 'multiplayer.html');
+    if (person != null){
+        if (person !== "") {
+            openPage('room.html', 'multiplayer.html');
 
-    sessionStorage.setItem('name', person);
+            sessionStorage.setItem('name', person);
+        } else {
+            alert("Firstly, you should enter your name!");
+
+        }
+    }
+}
+
+function getRoomId() {
+    let room = prompt('Please, enter the room ID that you want to join :)');
+
+    if(room != null){
+
+    }
 }
