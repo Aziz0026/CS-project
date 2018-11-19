@@ -1,24 +1,28 @@
-<link rel="stylesheet" href="../css/general.css">
-<script src="../js/events.js"></script>
-<script src="../js/game.js"></script>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Menu</title>
+    <link rel="stylesheet" href="../css/general.css">
 </head>
+
 <body>
 <div id="header">
     <h1>Menu</h1>
     <hr>
 </div>
+
 <div id="buttons">
     <div class="button_cont" align="center" onclick="changeMode('Singleplayer'); openPage('index.html', 'menu.html')">
         <a id="single_player" target="_blank" rel="nofollow noopener">Singleplayer</a>
     </div>
-    <div class="button_cont" align="center" onclick="changeMode('Multiplayer'); openPage('multiplayer.html', 'menu.html')">
+    <div class="button_cont" align="center"
+         onclick="changeMode('Multiplayer'); openPage('multiplayer.html', 'menu.html')">
         <a id="multi_player" target="_blank" rel="nofollow noopener">Multiplayer</a>
     </div>
 </div>
+
+<script src="../js/events.js"></script>
+<script src="../js/game.js"></script>
+
 </body>
 </html>

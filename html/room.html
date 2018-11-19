@@ -1,26 +1,20 @@
-<link rel="stylesheet" href="../css/index.css">
-<link rel="stylesheet" href="../css/room.css">
-
-<script src="../js/events.js"></script>
-<script src="../js/game.js"></script>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Multiplayer</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/room.css">
 </head>
 
-document.write('<body>');
-
+<body>
 <div class="split left">
     <div class="">
         <script>
-            document.write('<h3 id="name">' + 'Hello, ' + sessionStorage.getItem('name') +  '</h3>');
+            document.write('<h3 id="name">' + 'Hello, ' + sessionStorage.getItem('name') + '</h3>');
             document.write('<div style="margin-left: 35px">');
             document.write('<h3>You just created room :)</h3>')
             document.write('<h3>------------------------------------</h3>');
-            document.write('<b><h2">Room ID: ' + '<span style="color: red">3213</span>' +'</h3></b>');
+            document.write('<b><h2">Room ID: ' + '<span style="color: red">3213</span>' + '</h3></b>');
             document.write('</div>\n');
         </script>
     </div>
@@ -41,6 +35,7 @@ document.write('<body>');
     </div>
 </div>
 
-document.write('</body>');
+<script src="../js/events.js"></script>
 
+</body>
 </html>
