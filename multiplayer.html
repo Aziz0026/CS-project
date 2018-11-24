@@ -4,6 +4,7 @@
     <title>Multiplayer</title>
     <link rel="stylesheet" href="/game/css/index.css">
     <link rel="stylesheet" href="/game/css/general.css">
+    <link rel="stylesheet" href="/game/css/name_form.css">
 
     <script src="/game/js/events.js"></script>
 </head>
@@ -18,15 +19,54 @@
 </div>
 
 <div id="buttons">
-    <div class="button_cont" align="center" onclick="getRoomId()" style="width: 95px">
+    <div class="button_cont" align="center" onclick="document.getElementById('id02').style.display='block'"
+         style="width: 95px">
         <a id="join_room" target="_blank" rel="nofollow noopener">Join</a>
     </div>
-    <div class="button_cont" align="center" onclick="getName();">
+    <div class="button_cont" align="center" onclick="document.getElementById('id01').style.display='block'">
         <a id="create_room" target="_blank" rel="nofollow noopener">Create</a>
     </div>
 </div>
 
+<div id="id01" class="modal">
+
+    <form class="modal-content animate" action="/action_page.php">
+        <div class="container">
+            <label><b>Please, enter your name :)</b></label>
+            <input type="text" placeholder="Name" name="uname" required>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+<div id="id02" class="modal">
+
+    <form class="modal-content animate" action="/action_page.php">
+        <div class="container">
+            <label><b>Please, enter room that you want to join :)</b></label>
+            <input type="text" placeholder="room ID" name="uname" required>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+
 </body>
+
+<script>
+    // Get the modal
+    let modal = document.getElementById('id01');
+    let modal2 = document.getElementById('id02');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }else if(event.target === modal2){
+            modal2.style.display = "none";
+        }
+    }
+</script>
 </html>
 
 
