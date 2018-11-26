@@ -30,10 +30,10 @@
 
 <div id="id01" class="modal">
 
-    <form class="modal-content animate" action="/action_page.php">
+    <form class="modal-content animate" method="post" action="http://127.0.0.1:3000/room.php">
         <div class="container">
             <label><b>Please, enter your name :)</b></label>
-            <input type="text" placeholder="Name" name="uname" required>
+            <input type="text" placeholder="Name" name="username" required>
             <button type="submit">Submit</button>
         </div>
     </form>
@@ -41,10 +41,12 @@
 
 <div id="id02" class="modal">
 
-    <form class="modal-content animate" action="/action_page.php">
+    <form class="modal-content animate" method="post" action="http://127.0.0.1:3000/room.php">
         <div class="container">
             <label><b>Please, enter room that you want to join :)</b></label>
-            <input type="text" placeholder="room ID" name="uname" required>
+            <input type="text" placeholder="room ID" name="room" required>
+            <label><b>Please, enter your name :)</b></label>
+            <input type="text" placeholder="name" name="name" required>
             <button type="submit">Submit</button>
         </div>
     </form>
