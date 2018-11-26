@@ -22,35 +22,54 @@
             Hello,
             <?php
 
-            $row = null;
-            $creator_name = $_POST["username"];
-
-            echo $creator_name;
-
             $db = new Database();
 
-            $db->createPlayer($creator_name);
+            $room = null;
+            $creator = null;
+            $joiner = null;
 
-            $result = $db->searchPlayerByName($creator_name);
+            $greeting = "You jus created room :)";
 
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    $db->createRoom($row["id"]);
-                }
-            } else {
-                echo "0 results";
+
+            if (isset($_POST["username"])) {
+                $row = null;
+                $creator_name = $_POST["username"];
+
+                $creator = $creator_name;
+
+                echo $creator_name;
+
+
+                $db->createRoom($creator_name);
+
+                $room = $db->getElementFromResult($db->roomIdByName($creator_name), "id");
+
+                $joiner = $db->getElementFromResult($db->getRoomById($room), "joiner_name");
+
+            } else if (isset($_POST["joiner_name"])) {
+
+                $room = $_POST["room_id"];
+
+                $creator = $db->getElementFromResult($db->getRoomById($room), "creator_name");
+
+                $joiner = $_POST["joiner_name"];
+
+                $greeting = "You just joined room:)";
+
+
+                $db->addJoinerToRoom($_POST["joiner_name"], $room);
+
+                echo $_POST["joiner_name"];
             }
-
 
             ?>
         </h3>
 
 
         <div style="margin-left: 35px">
-            <h3>You just created room :)</h3>
+            <h3><?php echo $greeting ?></h3>
             <h3>------------------------------------</h3>
-            <b><h3>Room ID: <span style="color: red"><?php $room = $db->searchRoomByCreator($row["id"]);
-                        echo $room["id"] ?></span></h3>
+            <b><h3>Room ID: <span style="color: red"><?php echo $room ?></span></h3>
             </b>
         </div>
     </div>
@@ -71,8 +90,8 @@
         <div>
             <h1>Scores</h1>
             <header class="score">
-                <h2><span id="user"><?php echo $_POST['username'] . '(X):' ?></span></h2>
-                <h2><span id="computer">Second user:</span></h2>
+                <h2><span id="user"><?php echo $creator ?></span></h2>
+                <h2><span id="computer"><?php echo $joiner ?></span></h2>
                 <h2 id="draw">Draw:</h2>
             </header>
         </div>

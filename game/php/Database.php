@@ -8,34 +8,41 @@ class Database
     function __construct()
     {
         $this->db = mysqli_connect($this->host, $this->username, $this->password, $this->db_name);
+    }
 
-        if ($this->db != false) {
-            echo "<script>console.log('works');</script>";
+    public function createRoom($creator_name)
+    {
+        $query = "INSERT INTO room (creator_name) VALUES ('$creator_name');";
+        $this->db->query($query);
+    }
+
+    public function addJoinerToRoom($joiner_name, $room_id)
+    {
+        $first_query = "SET SQL_SAFE_UPDATES = 0;";
+        $second_query = "UPDATE room SET joiner_name = '${joiner_name}' WHERE id = '${room_id}';";
+        $this->db->query($first_query);
+        $this->db->query($second_query);
+    }
+
+    public function roomIdByName($creator_name)
+    {
+        $query = "SELECT id from room WHERE creator_name IN ('$creator_name');";
+        return $this->db->query($query);
+    }
+
+    public function getRoomById($room_id)
+    {
+        return $this->db->query("SELECT creator_name, joiner_name from room WHERE id = $room_id;");
+    }
+
+    public function getElementFromResult($result, $element)
+    {
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                return $row["$element"];
+            }
+        } else {
+            echo "0 results";
         }
-
-    }
-
-    public function createPlayer($player_name)
-    {
-        $query = "INSERT INTO player(name) VALUES ('$player_name');";
-        $this->db->query($query);
-    }
-
-    public function createRoom($creator_id)
-    {
-        $query = "INSERT INTO room (creator_id) VALUES ('$creator_id');";
-        $this->db->query($query);
-    }
-
-    public function searchRoomByCreator($creator_id)
-    {
-        $query = "SELECT id ,creator_id from room WHERE creator_id IN ($creator_id);";
-        return $this->db->query($query);
-    }
-
-    public function searchPlayerByName($player_name)
-    {
-        $query = "SELECT id , name from player WHERE name IN ('$player_name');";
-        return $this->db->query($query);
     }
 }
