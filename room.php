@@ -9,6 +9,9 @@
 
     <script src="/game/js/events.js"></script>
     <script src="/game/js/game.js"></script>
+
+    <?php include 'game/php/Database.php'; ?>
+
 </head>
 
 <body>
@@ -31,18 +34,23 @@
             $result = $db->searchPlayerByName($creator_name);
 
             if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-
-                $db->createRoom($row["id"]);
+                while($row = $result->fetch_assoc()) {
+                    $db->createRoom($row["id"]);
+                }
+            } else {
+                echo "0 results";
             }
+
 
             ?>
         </h3>
 
+
         <div style="margin-left: 35px">
             <h3>You just created room :)</h3>
             <h3>------------------------------------</h3>
-            <b><h3>Room ID: <span style="color: red"><?php $room = $db->searchRoomByCreator($row["id"]); echo $room["id"]?></span></h3>
+            <b><h3>Room ID: <span style="color: red"><?php $room = $db->searchRoomByCreator($row["id"]);
+                        echo $room["id"] ?></span></h3>
             </b>
         </div>
     </div>
