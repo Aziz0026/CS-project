@@ -60,9 +60,8 @@ if (isset($_POST["joiner_name"])) {
 
         <form class="modal-content animate" method="post" action="http://127.0.0.1:3000/multiplayer.php">
             <div class="container">
-                <div id="back"><h3 class="success" onclick="openPage('multiplayer.php', 'joiner_room.php')">Back to
-                        menu</h3></div>
-                <input type="hidden" name="room_id" value="">
+                <input type="hidden" name="room_id" value="<?php echo htmlspecialchars($room) ?>">
+                <button class="button button5"><b>Back to multiplayer</b></button>
             </div>
         </form>
 

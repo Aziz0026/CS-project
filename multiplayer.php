@@ -12,12 +12,15 @@
 </head>
 
 <?php
+$db = new Database();
+
 if (isset($_POST["finish"])) {
     $room_id = $_POST["room_id"];
 
-    $db = new Database();
 
     $db->destroyRoom($room_id);
+} else if ($_POST["room_id"]) {
+    $db->removeJoiner($_POST["room_id"]);
 }
 
 ?>
