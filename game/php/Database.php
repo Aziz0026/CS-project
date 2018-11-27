@@ -45,4 +45,25 @@ class Database
             echo "0 results";
         }
     }
+
+    public function destroyRoom($room_id)
+    {
+        $first_query = "SET SQL_SAFE_UPDATES = 0;";
+        $second_query = "DELETE FROM room WHERE id = '$room_id'";
+        $this->db->query($first_query);
+        $this->db->query($second_query);
+    }
+
+
+    public function checkRoomForExisting($creator_id)
+    {
+
+        $query = "SELECT id from room WHERE creator_name = '$creator_id';";
+        $result = $this->getElementFromResult($this->db->query($query), "id");
+
+        if ($result != "") {
+            return true;
+        }
+        return false;
+    }
 }

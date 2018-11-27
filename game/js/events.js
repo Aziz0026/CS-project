@@ -14,7 +14,7 @@ function getName() {
 
     if (person != null){
         if (person !== "") {
-            openPage('room.php', 'multiplayer.html');
+            openPage('room.php', 'multiplayer.php');
 
             sessionStorage.setItem('name', person);
         } else {

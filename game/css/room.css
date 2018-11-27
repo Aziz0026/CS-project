@@ -29,3 +29,32 @@ body {
 #name{
     margin-left: 80px;
 }
+
+.button3 {
+    background-color: red;
+    color: black;
+    border: 2px solid red;
+}
+
+.button3:hover {
+    background-color: red;
+    color: white;
+}
+
+.button {
+    background-color: forestgreen; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-left: 35px;
+    border-radius: 16px;
+
+}

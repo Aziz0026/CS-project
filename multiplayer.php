@@ -6,11 +6,24 @@
     <link rel="stylesheet" href="/game/css/general.css">
     <link rel="stylesheet" href="/game/css/name_form.css">
 
+    <?php include 'game/php/Database.php'; ?>
+
     <script src="/game/js/events.js"></script>
 </head>
 
+<?php
+if (isset($_POST["finish"])) {
+    $room_id = $_POST["room_id"];
+
+    $db = new Database();
+
+    $db->destroyRoom($room_id);
+}
+
+?>
+
 <script>
-    document.write('<div id="back"><h3 class="success" onclick="openPage(\'menu.html\', \'multiplayer.html\')">Back to menu</h3></div>');
+    document.write('<div id="back"><h3 class="success" onclick="openPage(\'menu.html\', \'multiplayer.php\')">Back to menu</h3></div>');
 </script>
 
 <div id="header">
@@ -64,7 +77,7 @@
     window.onclick = function (event) {
         if (event.target === modal) {
             modal.style.display = "none";
-        }else if(event.target === modal2){
+        } else if (event.target === modal2) {
             modal2.style.display = "none";
         }
     }
