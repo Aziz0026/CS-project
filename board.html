@@ -11,9 +11,6 @@
 <div class="split right">
     <div class="">
         <script>
-            //getting mode from session storage
-            mode = sessionStorage.getItem('mode');
-
             document.write('<div id="back"><h3 class="success" onclick="openPage(\'menu.html\', \'board.html\')">Back to menu</h3></div>');
 
             drawGrid();
@@ -26,7 +23,7 @@
             startOfTheGame();
 
             //changing tab name depending on game mode (single player or multi player)
-            changeTitle(mode);
+            changeTitle("Singleplayer");
         </script>
     </div>
 </div>

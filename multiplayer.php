@@ -43,7 +43,7 @@ if (isset($_POST["finish"])) {
 
 <div id="id01" class="modal">
 
-    <form class="modal-content animate" method="post" action="http://127.0.0.1:3000/room.php">
+    <form class="modal-content animate" method="post" action="http://localhost:3000/creator_room.php">
         <div class="container">
             <label><b>Please, enter your name :)</b></label>
             <input type="text" placeholder="Name" name="username" required>
@@ -54,7 +54,7 @@ if (isset($_POST["finish"])) {
 
 <div id="id02" class="modal">
 
-    <form class="modal-content animate" method="post" action="http://127.0.0.1:3000/room.php">
+    <form class="modal-content animate" method="post" action="http://localhost:3000/joiner_room.php">
         <div class="container">
             <label><b>Please, enter room that you want to join :)</b></label>
             <input type="text" placeholder="room ID" name="room_id" required>

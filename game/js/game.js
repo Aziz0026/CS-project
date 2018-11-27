@@ -7,7 +7,7 @@ let game = {
     turn: 'computer',
 };
 
-const winMoves = [
+const WIN_MOVES = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -34,10 +34,6 @@ function setFigure() {
         game.user = 'O';
         game.computer = 'X';
     }
-}
-
-function setTurn(nextPlayer) {
-    game.turn = nextPlayer;
 }
 
 function setScore() {
@@ -106,8 +102,8 @@ function redraw(array){
 function gameStatus() {
     let counter = 0;
     while (counter !== 8) {
-        if (checkForWin(winMoves[counter])) {
-            changeCellsBackground(winMoves[counter]);
+        if (checkForWin(WIN_MOVES[counter])) {
+            changeCellsBackground(WIN_MOVES[counter]);
             incrementScore();
             setScore();
             changeGameStatus('off');
@@ -295,15 +291,11 @@ function changeTitle(titleName){
     document.write('<head><title>' + titleName + '</title></head>');
 }
 
-function changeMode(gameMode){
-    sessionStorage.setItem('mode', gameMode);
-}
-
 function winning(board, playerChar) {
     let counter = 0;
     let winMove;
     while (counter <= 7) {
-        winMove = winMoves[counter];
+        winMove = WIN_MOVES[counter];
 
         if(board[winMove[0]] === playerChar && board[winMove[1]] === playerChar && board[winMove[2]] === playerChar) {
             return true;

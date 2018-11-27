@@ -66,4 +66,9 @@ class Database
         }
         return false;
     }
+
+    public function removeJoiner($room_id){
+        $query = "UPDATE room set joiner_name =  null where id = $room_id;";
+        $this->db->query($query);
+    }
 }

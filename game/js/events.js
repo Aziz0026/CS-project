@@ -8,26 +8,3 @@ function replaceFilename(newFile, oldFile) {
     let newUrl = currentUrl.replace(re, newFile);
     window.open(newUrl, '_self');
 }
-
-function getName() {
-    let person = prompt('Please, enter your name:');
-
-    if (person != null){
-        if (person !== "") {
-            openPage('room.php', 'multiplayer.php');
-
-            sessionStorage.setItem('name', person);
-        } else {
-            alert("Firstly, you should enter your name!");
-
-        }
-    }
-}
-
-function getRoomId() {
-    let room = prompt('Please, enter the room ID that you want to join :)');
-
-    if(room != null){
-
-    }
-}
