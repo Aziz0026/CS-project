@@ -71,4 +71,14 @@ class Database
         $query = "UPDATE room set joiner_name =  null where id = $room_id;";
         $this->db->query($query);
     }
+
+    public function createCell($room_id, $index_id){
+        $query = "INSERT INTO cell (room_id, index_id) VALUES (${room_id}, ${index_id});";
+        $this->db->query($query);
+    }
+
+    public function deleteCellsByRoom($room_id){
+        $query = "DELETE FROM cell WHERE room_id = $room_id;";
+        $this->db->query($query);
+    }
 }

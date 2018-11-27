@@ -19,6 +19,8 @@ if (isset($_POST["finish"])) {
 
 
     $db->destroyRoom($room_id);
+
+    $db->deleteCellsByRoom($room_id);
 } else if ($_POST["room_id"]) {
     $db->removeJoiner($_POST["room_id"]);
 }

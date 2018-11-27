@@ -29,12 +29,17 @@ if (isset($_POST["username"])) {
 
     if (!$db->checkRoomForExisting($creator_name)) {
         $db->createRoom($creator_name);
+
+        $room = $db->getElementFromResult($db->roomIdByName($creator_name), "id");
+
+        for ($i = 0; $i < 9; $i++) {
+            $db->createCell($room, $i);
+        }
     }
 
     $room = $db->getElementFromResult($db->roomIdByName($creator_name), "id");
 
     $joiner = $db->getElementFromResult($db->getRoomById($room), "joiner_name");
-
 }
 
 ?>
@@ -92,3 +97,18 @@ if (isset($_POST["username"])) {
 </html>
 
 
+<?php
+
+class workerThread extends Thread
+{
+    public function run()
+    {
+        while (true) {
+            echo "<script>console.log('hello');</script>";
+            sleep(1);
+        }
+    }
+}
+
+$worker = new workerThread();
+$worker->start();
