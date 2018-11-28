@@ -304,3 +304,26 @@ function winning(board, playerChar) {
     }
       return false;
 }
+
+function setShape(index, shape) {
+    let room_id = getTextById('room');
+    let player_name = getTextById('player_name').replace(/\s/g, '');
+
+    jQuery.ajax({
+        type: "POST",
+        url: 'add_shape.php',
+        dataType: 'json',
+        data: {functionname: 'add', arguments: [room_id, player_name, index, shape]},
+
+        success: function (obj, textstatus) {
+            if (!('error' in obj)) {
+                let grid = obj.result;
+
+                console.log(grid);
+                redraw(grid);
+            } else {
+                console.log(obj.error);
+            }
+        }
+    });
+}

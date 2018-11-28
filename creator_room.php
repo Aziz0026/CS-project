@@ -82,45 +82,19 @@ if (isset($_POST["username"])) {
         <div class="text-center" id="box">
             <header><h1>Play Tic Tac Toe</h1></header>
             <ul id="gameBoard">
-                <li class="tic" id="0" onclick="setShape(0)">#</li>
-                <li class="tic" id="1" onclick="setShape(1)">#</li>
-                <li class="tic" id="2" onclick="setShape(2)">#</li>
-                <li class="tic" id="3" onclick="setShape(3)">#</li>
-                <li class="tic" id="4" onclick="setShape(4)">#</li>
-                <li class="tic" id="5" onclick="setShape(5)">#</li>
-                <li class="tic" id="6" onclick="setShape(6)">#</li>
-                <li class="tic" id="7" onclick="setShape(7)">#</li>
-                <li class="tic" id="8" onclick="setShape(8)">#</li>
+                <li class="tic" id="0" onclick="setShape(0, 'X')">#</li>
+                <li class="tic" id="1" onclick="setShape(1, 'X')">#</li>
+                <li class="tic" id="2" onclick="setShape(2, 'X')">#</li>
+                <li class="tic" id="3" onclick="setShape(3, 'X')">#</li>
+                <li class="tic" id="4" onclick="setShape(4, 'X')">#</li>
+                <li class="tic" id="5" onclick="setShape(5, 'X')">#</li>
+                <li class="tic" id="6" onclick="setShape(6, 'X')">#</li>
+                <li class="tic" id="7" onclick="setShape(7, 'X')">#</li>
+                <li class="tic" id="8" onclick="setShape(8, 'X')">#</li>
             </ul>
 
             <script>
-                function setShape(index) {
-                    let room_id = getTextById('room');
-                    let player_name = getTextById('player_name').replace(/\s/g, '');
-                    let shape = "X";
-
-                    jQuery.ajax({
-                        type: "POST",
-                        url: 'add_shape.php',
-                        dataType: 'json',
-                        data: {functionname: 'add', arguments: [room_id, player_name, index, shape]},
-
-                        success: function (obj, textstatus) {
-                            if (!('error' in obj)) {
-                                let grid = obj.result;
-
-                                console.log(grid);
-                                redraw(grid);
-                            } else {
-                                console.log(obj.error);
-                            }
-                        }
-                    });
-
-                }
-
                 document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
-
             </script>
         </div>
 

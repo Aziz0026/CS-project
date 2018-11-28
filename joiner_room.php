@@ -10,6 +10,8 @@
     <script src="/game/js/events.js"></script>
     <script src="/game/js/game.js"></script>
 
+    <script src="game/jQuery/jquery-3.3.1.js"></script>
+
     <?php include 'game/php/Database.php'; ?>
 </head>
 
@@ -40,16 +42,18 @@ if (isset($_POST["joiner_name"])) {
     <div class="">
         <h3 id="name">
             Hello,
-            <?php
-            echo $joiner;
-            ?>
+            <span id="player_name">
+                <?php
+                echo $joiner;
+                ?>
+            </span>
         </h3>
 
 
         <div style="margin-left: 35px">
             <h3>You just joined room:)</h3>
             <h3>------------------------------------</h3>
-            <b><h3>Room ID: <span style="color: red"><?php echo $room ?></span></h3>
+            <b><h3>Room ID: <span style="color: red" id="room"><?php echo $room ?></span></h3>
             </b>
         </div>
     </div>
@@ -69,30 +73,27 @@ if (isset($_POST["joiner_name"])) {
         <div class="text-center" id="box">
             <header><h1>Play Tic Tac Toe</h1></header>
             <ul id="gameBoard">
-                <li class="tic" id="0" onclick="">#</li>
-                <li class="tic" id="1" onclick="">#</li>
-                <li class="tic" id="2" onclick="">#</li>
-                <li class="tic" id="3" onclick="">#</li>
-                <li class="tic" id="4" onclick="">#</li>
-                <li class="tic" id="5" onclick="">#</li>
-                <li class="tic" id="6" onclick="">#</li>
-                <li class="tic" id="7" onclick="">#</li>
-                <li class="tic" id="8" onclick="">#</li>
+                <li class="tic" id="0" onclick="setShape(0, 'O')">#</li>
+                <li class="tic" id="1" onclick="setShape(1, 'O')">#</li>
+                <li class="tic" id="2" onclick="setShape(2, 'O')">#</li>
+                <li class="tic" id="3" onclick="setShape(3, 'O')">#</li>
+                <li class="tic" id="4" onclick="setShape(4, 'O')">#</li>
+                <li class="tic" id="5" onclick="setShape(5, 'O')">#</li>
+                <li class="tic" id="6" onclick="setShape(6, 'O')">#</li>
+                <li class="tic" id="7" onclick="setShape(7, 'O')">#</li>
+                <li class="tic" id="8" onclick="setShape(8, 'O')">#</li>
             </ul>
 
             <script>
-                // drawGrid();
-
                 document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
-
             </script>
         </div>
 
         <div>
             <h1>Scores</h1>
             <header class="score">
-                <h2><span id="user"><?php echo $creator ?></span></h2>
-                <h2><span id="computer"><?php echo $joiner ?></span></h2>
+                <h2><span id="user"><?php echo $creator . "(X)" ?></span></h2>
+                <h2><span id="computer"><?php echo $joiner . "(O)" ?></span></h2>
                 <h2 id="draw">Draw:</h2>
             </header>
         </div>
