@@ -88,7 +88,7 @@ if (isset($_POST["username"])) {
             <h1>Scores</h1>
             <header class="score">
                 <h2><span id="user"><?php echo $creator ?></span></h2>
-                <h2><span id="computer"></span></h2>
+                <h2><span id="computer">Waiting for player... </span></h2>
                 <h2 id="draw">Draw:</h2>
             </header>
         </div>
@@ -104,22 +104,23 @@ if (isset($_POST["username"])) {
             type: "POST",
             url: 'check_for_joiner.php',
             dataType: 'json',
-            data: {functionname: 'check', arguments: [getTextById('room'), 2]},
+            data: {functionname: 'check', arguments: [getTextById('room')]},
 
             success: function (obj, textstatus) {
                 if( !('error' in obj) ) {
                     yourVariable = obj.result;
-                } else {
-                    console.log(obj.error);
 
-                    if(obj.error !== null){
-                        getElementById('computer').innerText = obj.error;
+                    if(yourVariable !== null){
+                        getElementById('computer').innerText = yourVariable;
 
                         clearInterval(timer);
                     }
+
+                    console.log(yourVariable);
+                } else {
+                    console.log(obj.error);
                 }
             }
         });
     };
-
 </script>

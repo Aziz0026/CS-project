@@ -17,7 +17,7 @@ if (!isset($aResult['error'])) {
 
     switch ($_POST['functionname']) {
         case 'check':
-            if (!is_array($_POST['arguments']) || (count($_POST['arguments']) < 2)) {
+            if (!is_array($_POST['arguments']) || (count($_POST['arguments']) < 1)) {
                 $aResult['error'] = 'Error in arguments!';
             } else {
                 $room_id = $_POST['arguments'][0];
@@ -25,7 +25,8 @@ if (!isset($aResult['error'])) {
                 $db = new Database();
 
                 $joiner = $db->getJoinerByRoomId($room_id);
-                $aResult['error'] = $joiner;
+
+                $aResult['result'] = $joiner;
             }
             break;
 
