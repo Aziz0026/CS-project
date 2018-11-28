@@ -17,11 +17,11 @@ $db = new Database();
 if (isset($_POST["finish"])) {
     $room_id = $_POST["room_id"];
 
+    $db->deleteCellsByRoom($room_id);
 
     $db->destroyRoom($room_id);
 
-    $db->deleteCellsByRoom($room_id);
-} else if ($_POST["room_id"]) {
+} else if (isset($_POST["room_id"])) {
     $db->removeJoiner($_POST["room_id"]);
 }
 

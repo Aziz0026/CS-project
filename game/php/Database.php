@@ -49,7 +49,7 @@ class Database
     public function destroyRoom($room_id)
     {
         $first_query = "SET SQL_SAFE_UPDATES = 0;";
-        $second_query = "DELETE FROM room WHERE id = '$room_id'";
+        $second_query = "DELETE FROM room WHERE id = '$room_id';";
         $this->db->query($first_query);
         $this->db->query($second_query);
     }

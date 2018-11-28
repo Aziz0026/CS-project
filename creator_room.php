@@ -63,10 +63,10 @@ if (isset($_POST["username"])) {
             </b>
         </div>
 
-        <form class="modal-content animate" method="post" action="http://127.0.0.1:3000/multiplayer.php">
+        <form class="modal-content animate" method="post" action="multiplayer.php">
             <div class="container">
-                <button class="button button3" name="finish" onclick="">Finish the game</button>
                 <input type="hidden" name="room_id" value="<?php echo htmlspecialchars($room) ?>">
+                <button class="button button3" name="finish" onclick="">Finish the game</button>
             </div>
         </form>
 
@@ -95,20 +95,3 @@ if (isset($_POST["username"])) {
 </div>
 </body>
 </html>
-
-
-<?php
-
-class workerThread extends Thread
-{
-    public function run()
-    {
-        while (true) {
-            echo "<script>console.log('hello');</script>";
-            sleep(1);
-        }
-    }
-}
-
-$worker = new workerThread();
-$worker->start();
