@@ -66,12 +66,27 @@ if (isset($_POST["joiner_name"])) {
         </form>
 
 
-        <script>
-            drawGrid();
+        <div class="text-center" id="box">
+            <header><h1>Play Tic Tac Toe</h1></header>
+            <ul id="gameBoard">
+                <li class="tic" id="0" onclick="">#</li>
+                <li class="tic" id="1" onclick="">#</li>
+                <li class="tic" id="2" onclick="">#</li>
+                <li class="tic" id="3" onclick="">#</li>
+                <li class="tic" id="4" onclick="">#</li>
+                <li class="tic" id="5" onclick="">#</li>
+                <li class="tic" id="6" onclick="">#</li>
+                <li class="tic" id="7" onclick="">#</li>
+                <li class="tic" id="8" onclick="">#</li>
+            </ul>
 
-            document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
+            <script>
+                // drawGrid();
 
-        </script>
+                document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
+
+            </script>
+        </div>
 
         <div>
             <h1>Scores</h1>

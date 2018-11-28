@@ -67,22 +67,26 @@ class Database
         return false;
     }
 
-    public function removeJoiner($room_id){
+    public function removeJoiner($room_id)
+    {
         $query = "UPDATE room set joiner_name =  null where id = $room_id;";
         $this->db->query($query);
     }
 
-    public function createCell($room_id, $index_id){
+    public function createCell($room_id, $index_id)
+    {
         $query = "INSERT INTO cell (room_id, index_id) VALUES (${room_id}, ${index_id});";
         $this->db->query($query);
     }
 
-    public function deleteCellsByRoom($room_id){
+    public function deleteCellsByRoom($room_id)
+    {
         $query = "DELETE FROM cell WHERE room_id = $room_id;";
         $this->db->query($query);
     }
 
-    public function getJoinerByRoomId($room_id){
+    public function getJoinerByRoomId($room_id)
+    {
         $query = "SELECT joiner_name from room where id =  $room_id;";
         $result = $this->getElementFromResult($this->db->query($query), "joiner_name");
 
@@ -90,5 +94,34 @@ class Database
             return $result;
         }
         return null;
+    }
+
+    public function updateCell($room_id, $player_name, $index, $shape)
+    {
+        $query = "UPDATE cell set player_name = '$player_name', shape = '$shape' where room_id = $room_id and index_id = $index;";
+        $this->db->query($query);
+    }
+
+    public function getPositionsOfGrid($room_id)
+    {
+        $result = [];
+
+        for ($i = 0; $i < 9; $i++) {
+            $shape = $this->getShapeByIndex($i, $room_id);
+
+            if ($shape == null) {
+                $result[$i] = "#";
+            } else {
+                $result[$i] = $shape;
+            }
+        }
+
+        return $result;
+    }
+
+    public function getShapeByIndex($index_id, $room_id)
+    {
+        $query = "SELECT shape FROM cell where index_id = $index_id and room_id =  $room_id;";
+        return $this->getElementFromResult($this->db->query($query), 'shape');
     }
 }

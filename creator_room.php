@@ -52,9 +52,11 @@ if (isset($_POST["username"])) {
     <div class="">
         <h3 id="name">
             Hello,
-            <?php
-            echo $creator;
-            ?>
+            <span id="player_name">
+                <?php
+                echo $creator;
+                ?>
+            </span>
         </h3>
 
         <div style="margin-left: 35px">
@@ -77,17 +79,55 @@ if (isset($_POST["username"])) {
 
 <div class="split right">
     <div class="">
-        <script>
-            drawGrid();
+        <div class="text-center" id="box">
+            <header><h1>Play Tic Tac Toe</h1></header>
+            <ul id="gameBoard">
+                <li class="tic" id="0" onclick="setShape(0)">#</li>
+                <li class="tic" id="1" onclick="setShape(1)">#</li>
+                <li class="tic" id="2" onclick="setShape(2)">#</li>
+                <li class="tic" id="3" onclick="setShape(3)">#</li>
+                <li class="tic" id="4" onclick="setShape(4)">#</li>
+                <li class="tic" id="5" onclick="setShape(5)">#</li>
+                <li class="tic" id="6" onclick="setShape(6)">#</li>
+                <li class="tic" id="7" onclick="setShape(7)">#</li>
+                <li class="tic" id="8" onclick="setShape(8)">#</li>
+            </ul>
 
-            document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
+            <script>
+                function setShape(index) {
+                    let room_id = getTextById('room');
+                    let player_name = getTextById('player_name').replace(/\s/g, '');
+                    let shape = "X";
 
-        </script>
+                    jQuery.ajax({
+                        type: "POST",
+                        url: 'add_shape.php',
+                        dataType: 'json',
+                        data: {functionname: 'add', arguments: [room_id, player_name, index, shape]},
+
+                        success: function (obj, textstatus) {
+                            if (!('error' in obj)) {
+                                let grid = obj.result;
+
+                                console.log(grid);
+                                redraw(grid);
+                            } else {
+                                console.log(obj.error);
+                            }
+                        }
+                    });
+
+                }
+
+                document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
+
+            </script>
+        </div>
 
         <div>
             <h1>Scores</h1>
             <header class="score">
-                <h2><span id="user"><?php echo $creator ?></span></h2>
+                <h2><span id="user"><?php echo $creator . "(X)" ?></span></h2>
                 <h2><span id="computer">Waiting for player... </span></h2>
                 <h2 id="draw">Draw:</h2>
             </header>
@@ -96,10 +136,11 @@ if (isset($_POST["username"])) {
 </div>
 </body>
 </html>
-<script>
-    let timer  = setInterval(myTimer, 1000);
 
-    function myTimer(){
+<script>
+    let timer = setInterval(myTimer, 1000);
+
+    function myTimer() {
         jQuery.ajax({
             type: "POST",
             url: 'check_for_joiner.php',
@@ -107,11 +148,11 @@ if (isset($_POST["username"])) {
             data: {functionname: 'check', arguments: [getTextById('room')]},
 
             success: function (obj, textstatus) {
-                if( !('error' in obj) ) {
+                if (!('error' in obj)) {
                     yourVariable = obj.result;
 
-                    if(yourVariable !== null){
-                        getElementById('computer').innerText = yourVariable;
+                    if (yourVariable !== null) {
+                        getElementById('computer').innerText = yourVariable + "(O)";
 
                         clearInterval(timer);
                     }
