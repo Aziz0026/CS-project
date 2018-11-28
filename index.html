@@ -5,9 +5,16 @@
     <link rel="stylesheet" href="/game/css/welcome.css">
 
     <script src="/game/js/events.js"></script>
+    <script src="game/jQuery/jquery-3.3.1.js"></script>
+
+    <script>
+        document.addEventListener("click", function (evnt) {
+            openPage('menu.html', 'http://localhost:3000');
+        });
+    </script>
 </head>
 
-<body onclick="openPage('menu.html', 'http://localhost:3000')" id="body">
+<body id="body">
 <div id="box">
     <h1 id="header">Tic-Tac-Toe</h1>
     <div id="text">

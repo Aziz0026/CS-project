@@ -119,6 +119,20 @@ class Database
         return $result;
     }
 
+    public function checkForName($name)
+    {
+        $query = "SELECT id from room  where creator_name = '$name' or joiner_name = '$name';";
+        $result = $this->getElementFromResult($this->db->query($query), "id");
+
+        if($result !== null){
+            //will return true if it is exists
+            return true;
+        }
+
+        //will return false if it is not exists
+        return false;
+    }
+
     public function getShapeByIndex($index_id, $room_id)
     {
         $query = "SELECT shape FROM cell where index_id = $index_id and room_id =  $room_id;";
