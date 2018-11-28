@@ -3,7 +3,7 @@
 class Database
 {
     private $db = null;
-    private $host = "localhost:3306", $username = "root", $password = "Standart1", $db_name = "tic";
+    private $host = "127.0.0.1:3306", $username = "root", $password = "Standart1", $db_name = "tic";
 
     function __construct()
     {
@@ -80,5 +80,15 @@ class Database
     public function deleteCellsByRoom($room_id){
         $query = "DELETE FROM cell WHERE room_id = $room_id;";
         $this->db->query($query);
+    }
+
+    public function getJoinerByRoomId($room_id){
+        $query = "SELECT joiner_name from room where id =  $room_id;";
+        $result = $this->getElementFromResult($this->db->query($query), "joiner_name");
+
+        if ($result != "") {
+            return $result;
+        }
+        return null;
     }
 }

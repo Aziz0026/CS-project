@@ -10,6 +10,8 @@
     <script src="/game/js/events.js"></script>
     <script src="/game/js/game.js"></script>
 
+    <script src="game/jQuery/jquery-3.3.1.js"></script>
+
     <?php include 'game/php/Database.php'; ?>
 </head>
 
@@ -55,11 +57,10 @@ if (isset($_POST["username"])) {
             ?>
         </h3>
 
-
         <div style="margin-left: 35px">
             <h3>You just created room:)</h3>
             <h3>------------------------------------</h3>
-            <b><h3>Room ID: <span style="color: red"><?php echo $room ?></span></h3>
+            <b><h3>Room ID: <span style="color: red" id="room"><?php echo $room ?></span></h3>
             </b>
         </div>
 
@@ -87,7 +88,7 @@ if (isset($_POST["username"])) {
             <h1>Scores</h1>
             <header class="score">
                 <h2><span id="user"><?php echo $creator ?></span></h2>
-                <h2><span id="computer"><?php echo $joiner ?></span></h2>
+                <h2><span id="computer"></span></h2>
                 <h2 id="draw">Draw:</h2>
             </header>
         </div>
@@ -95,3 +96,30 @@ if (isset($_POST["username"])) {
 </div>
 </body>
 </html>
+<script>
+    let timer  = setInterval(myTimer, 1000);
+
+    function myTimer(){
+        jQuery.ajax({
+            type: "POST",
+            url: 'check_for_joiner.php',
+            dataType: 'json',
+            data: {functionname: 'check', arguments: [getTextById('room'), 2]},
+
+            success: function (obj, textstatus) {
+                if( !('error' in obj) ) {
+                    yourVariable = obj.result;
+                } else {
+                    console.log(obj.error);
+
+                    if(obj.error !== null){
+                        getElementById('computer').innerText = obj.error;
+
+                        clearInterval(timer);
+                    }
+                }
+            }
+        });
+    };
+
+</script>
