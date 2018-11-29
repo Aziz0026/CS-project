@@ -19,6 +19,8 @@ if (isset($_POST["finish"])) {
 
     $db->deleteCellsByRoom($room_id);
 
+    $db->deleteTurnByRoomId($room_id);
+
     $db->destroyRoom($room_id);
 
 } else if (isset($_POST["room_id"])) {

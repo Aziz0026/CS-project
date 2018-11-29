@@ -24,17 +24,17 @@ $creator = null;
 $joiner = null;
 
 if (isset($_POST["joiner_name"])) {
-    if (!$db->checkForName($_POST["joiner_name"])) {
-        $room = $_POST["room_id"];
+//    if (!$db->checkForName($_POST["joiner_name"])) {
+    $room = $_POST["room_id"];
 
-        $creator = $db->getElementFromResult($db->getRoomById($room), "creator_name");
+    $creator = $db->getElementFromResult($db->getRoomById($room), "creator_name");
 
-        $joiner = $_POST["joiner_name"];
+    $joiner = $_POST["joiner_name"];
 
-        $db->addJoinerToRoom($_POST["joiner_name"], $room);
-    } else {
-        echo "<script>openPage('multiplayer.php','joiner_room.php'); alert('Please, choose another name. This name is already in usage. Create a new one :)');</script>";
-    }
+    $db->addJoinerToRoom($_POST["joiner_name"], $room);
+//    } else {
+//        echo "<script>openPage('multiplayer.php','joiner_room.php'); alert('Please, choose another name. This name is already in usage. Create a new one :)');</script>";
+//    }
 }
 
 ?>
@@ -76,16 +76,63 @@ if (isset($_POST["joiner_name"])) {
         <div class="text-center" id="box">
             <header><h1>Play Tic Tac Toe</h1></header>
             <ul id="gameBoard">
-                <li class="tic" id="0" onclick="setShape(0, 'O')">#</li>
-                <li class="tic" id="1" onclick="setShape(1, 'O')">#</li>
-                <li class="tic" id="2" onclick="setShape(2, 'O')">#</li>
-                <li class="tic" id="3" onclick="setShape(3, 'O')">#</li>
-                <li class="tic" id="4" onclick="setShape(4, 'O')">#</li>
-                <li class="tic" id="5" onclick="setShape(5, 'O')">#</li>
-                <li class="tic" id="6" onclick="setShape(6, 'O')">#</li>
-                <li class="tic" id="7" onclick="setShape(7, 'O')">#</li>
-                <li class="tic" id="8" onclick="setShape(8, 'O')">#</li>
+                <?php
+                if ($db->getTurnByRoomId($room) == $joiner) {
+                    echo '
+                    <li class="tic" id="0" onclick="setShape(0, \'O\')">#</li>
+                    <li class="tic" id="1" onclick="setShape(1, \'O\')">#</li>
+                    <li class="tic" id="2" onclick="setShape(2, \'O\')">#</li>
+                    <li class="tic" id="3" onclick="setShape(3, \'O\')">#</li>
+                    <li class="tic" id="4" onclick="setShape(4, \'O\')">#</li>
+                    <li class="tic" id="5" onclick="setShape(5, \'O\')">#</li>
+                    <li class="tic" id="6" onclick="setShape(6, \'O\')">#</li>
+                    <li class="tic" id="7" onclick="setShape(7, \'O\')">#</li>
+                    <li class="tic" id="8" onclick="setShape(8, \'O\')">#</li>
+                    ';
+                } else {
+                    echo '
+                    <li class="tic" id="0">#</li>
+                    <li class="tic" id="1">#</li>
+                    <li class="tic" id="2">#</li>
+                    <li class="tic" id="3">#</li>
+                    <li class="tic" id="4">#</li>
+                    <li class="tic" id="5">#</li>
+                    <li class="tic" id="6">#</li>
+                    <li class="tic" id="7">#</li>
+                    <li class="tic" id="8">#</li>
+                    ';
+                }
+                ?>
             </ul>
+
+
+            <script>
+                let timer = setInterval(myTimer, 500);
+
+                function myTimer() {
+                    jQuery.ajax({
+                            type: "POST",
+                            url: 'update_grid.php',
+                            dataType: 'json',
+                            data: {functionname: 'update', arguments: [getTextById('room'), getTextById('player_name')]},
+
+                            success: function (obj, textstatus) {
+                                if (!('error' in obj)) {
+                                    yourVariable = obj.result;
+
+                                    console.log(yourVariable);
+
+                                    if (yourVariable !== "") {
+                                        redraw(yourVariable);
+                                    }
+                                } else {
+                                    console.log(obj.error);
+                                }
+                            }
+                        }
+                    );
+                };
+            </script>
 
             <script>
                 document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');

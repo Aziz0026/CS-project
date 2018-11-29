@@ -42,7 +42,7 @@ class Database
                 return $row["$element"];
             }
         } else {
-            echo "0 results";
+            return "0 results";
         }
     }
 
@@ -124,7 +124,7 @@ class Database
         $query = "SELECT id from room  where creator_name = '$name' or joiner_name = '$name';";
         $result = $this->getElementFromResult($this->db->query($query), "id");
 
-        if($result !== null){
+        if ($result !== null) {
             //will return true if it is exists
             return true;
         }
@@ -138,4 +138,21 @@ class Database
         $query = "SELECT shape FROM cell where index_id = $index_id and room_id =  $room_id;";
         return $this->getElementFromResult($this->db->query($query), 'shape');
     }
+
+    public function addTurn($room_id, $whose_turn)
+    {
+        $query = "INSERT INTO turn (room_id, whose_turn) values (112, 'Aziz');";
+        $this->db->query($query);
+    }
+
+    public function getTurnByRoomId($room_id)
+    {
+        $query = "SELECT whose_turn from turn where room_id = $room_id;";
+        return $this->getElementFromResult($this->db->query($query), 'whose_turn');
+    }
+
+    public function deleteTurnByRoomId($room_id){
+        $query = "DELETE from turn where room_id = $room_id;";
+        $this->db->query($query);
+}
 }
