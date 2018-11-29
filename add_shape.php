@@ -28,6 +28,11 @@ if (!isset($aResult['error'])) {
 
                 $db->updateCell($room_id, $player_name, $index, $shape);
 
+                if ($shape == "X") {
+                    $db->updateTurn($room_id, $db->getJoinerByRoomId($room_id));
+                } else if ($shape == "O") {
+                    $db->updateTurn($room_id, $db->getCreatorByRoomId($room_id));
+                }
                 $result = $db->getPositionsOfGrid($room_id);
 
                 $aResult['result'] = $result;

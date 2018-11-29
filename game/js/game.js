@@ -53,7 +53,7 @@ function setCurrentPlayer(currentPlayer) {
 function startOfTheGame() {
     changeGameStatus('on');
     setFigure();
-    if(game.turn === 'computer'){
+    if (game.turn === 'computer') {
         let randomCellId = Math.floor(Math.random() * 9);
         getElementById(randomCellId).textContent = game.computer;
         game.moves++;
@@ -90,9 +90,9 @@ function gameProgress(curPlayer, nextPlayer, cellId) {
     setCurrentPlayer(nextPlayer);
 }
 
-function redraw(array){
+function redraw(array) {
     let counter = 0;
-    while(counter <= 8){
+    while (counter <= 8) {
         let element = getElementById(counter);
         element.textContent = array[counter];
         counter++;
@@ -143,9 +143,9 @@ function reset() {
         counter++;
     }
     game.moves = 0;
-    if(game.turn === 'computer'){
+    if (game.turn === 'computer') {
         game.turn = 'user'
-    }else{
+    } else {
         game.turn = 'computer';
     }
     startOfTheGame();
@@ -287,7 +287,7 @@ function drawGrid() {
     );
 }
 
-function changeTitle(titleName){
+function changeTitle(titleName) {
     document.write('<head><title>' + titleName + '</title></head>');
 }
 
@@ -297,12 +297,12 @@ function winning(board, playerChar) {
     while (counter <= 7) {
         winMove = WIN_MOVES[counter];
 
-        if(board[winMove[0]] === playerChar && board[winMove[1]] === playerChar && board[winMove[2]] === playerChar) {
+        if (board[winMove[0]] === playerChar && board[winMove[1]] === playerChar && board[winMove[2]] === playerChar) {
             return true;
         }
         counter++;
     }
-      return false;
+    return false;
 }
 
 function setShape(index, shape) {
@@ -326,4 +326,18 @@ function setShape(index, shape) {
             }
         }
     });
+}
+
+function drawGridWithOnClick() {
+    document.write(
+        '<li class="tic" id="0" onclick="setShape(0, \'O\')">#</li>' +
+        '<li class="tic" id="1" onclick="setShape(1, \'O\')">#</li>' +
+        '<li class="tic" id="2" onclick="setShape(2, \'O\')">#</li>' +
+        '<li class="tic" id="3" onclick="setShape(3, \'O\')">#</li>' +
+        '<li class="tic" id="4" onclick="setShape(4, \'O\')">#</li>' +
+        '<li class="tic" id="5" onclick="setShape(5, \'O\')">#</li>' +
+        '<li class="tic" id="6" onclick="setShape(6, \'O\')">#</li>' +
+        '<li class="tic" id="7" onclick="setShape(7, \'O\')">#</li>' +
+        '<li class="tic" id="8" onclick="setShape(8, \'O\')">#</li>'
+    );
 }

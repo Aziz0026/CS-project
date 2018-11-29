@@ -76,64 +76,16 @@ if (isset($_POST["joiner_name"])) {
         <div class="text-center" id="box">
             <header><h1>Play Tic Tac Toe</h1></header>
             <ul id="gameBoard">
-                <?php
-                if ($db->getTurnByRoomId($room) == $joiner) {
-                    echo '
-                    <li class="tic" id="0" onclick="setShape(0, \'O\')">#</li>
-                    <li class="tic" id="1" onclick="setShape(1, \'O\')">#</li>
-                    <li class="tic" id="2" onclick="setShape(2, \'O\')">#</li>
-                    <li class="tic" id="3" onclick="setShape(3, \'O\')">#</li>
-                    <li class="tic" id="4" onclick="setShape(4, \'O\')">#</li>
-                    <li class="tic" id="5" onclick="setShape(5, \'O\')">#</li>
-                    <li class="tic" id="6" onclick="setShape(6, \'O\')">#</li>
-                    <li class="tic" id="7" onclick="setShape(7, \'O\')">#</li>
-                    <li class="tic" id="8" onclick="setShape(8, \'O\')">#</li>
-                    ';
-                } else {
-                    echo '
-                    <li class="tic" id="0">#</li>
-                    <li class="tic" id="1">#</li>
-                    <li class="tic" id="2">#</li>
-                    <li class="tic" id="3">#</li>
-                    <li class="tic" id="4">#</li>
-                    <li class="tic" id="5">#</li>
-                    <li class="tic" id="6">#</li>
-                    <li class="tic" id="7">#</li>
-                    <li class="tic" id="8">#</li>
-                    ';
-                }
-                ?>
+                <li class="tic" id="0" onclick="setShape(0, 'O')">#</li>
+                <li class="tic" id="1" onclick="setShape(1, 'O')">#</li>
+                <li class="tic" id="2" onclick="setShape(2, 'O')">#</li>
+                <li class="tic" id="3" onclick="setShape(3, 'O')">#</li>
+                <li class="tic" id="4" onclick="setShape(4, 'O')">#</li>
+                <li class="tic" id="5" onclick="setShape(5, 'O')">#</li>
+                <li class="tic" id="6" onclick="setShape(6, 'O')">#</li>
+                <li class="tic" id="7" onclick="setShape(7, 'O')">#</li>
+                <li class="tic" id="8" onclick="setShape(8, 'O')">#</li>
             </ul>
-
-
-            <script>
-                let timer = setInterval(myTimer, 500);
-
-                function myTimer() {
-                    jQuery.ajax({
-                            type: "POST",
-                            url: 'update_grid.php',
-                            dataType: 'json',
-                            data: {functionname: 'update', arguments: [getTextById('room'), getTextById('player_name')]},
-
-                            success: function (obj, textstatus) {
-                                if (!('error' in obj)) {
-                                    yourVariable = obj.result;
-
-                                    console.log(yourVariable);
-
-                                    if (yourVariable !== "") {
-                                        redraw(yourVariable);
-                                    }
-                                } else {
-                                    console.log(obj.error);
-                                }
-                            }
-                        }
-                    );
-                };
-            </script>
-
             <script>
                 document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
             </script>
@@ -151,3 +103,43 @@ if (isset($_POST["joiner_name"])) {
 </div>
 </body>
 </html>
+
+<script>
+    let timer = setInterval(myTimer, 500);
+
+    function myTimer() {
+        jQuery.ajax({
+                type: "POST",
+                url: 'update_grid.php',
+                dataType: 'json',
+                data: {functionname: 'update', arguments: [getTextById('room'), getTextById('player_name')]},
+
+                success: function (obj, textstatus) {
+                    if (!('error' in obj)) {
+                        yourVariable = obj.result;
+
+                        console.log(yourVariable);
+
+                        if (yourVariable !== "") {
+                            redraw(yourVariable);
+
+                            document.getElementById("0").onclick = null;
+                            document.getElementById("1").onclick = null;
+                            document.getElementById("2").onclick = null;
+                            document.getElementById("3").onclick = null;
+                            document.getElementById("4").onclick = null;
+                            document.getElementById("5").onclick = null;
+                            document.getElementById("6").onclick = null;
+                            document.getElementById("7").onclick = null;
+                            document.getElementById("8").onclick = null;
+                        } else {
+                            //
+                        }
+                    } else {
+                        console.log(obj.error);
+                    }
+                }
+            }
+        );
+    };
+</script>

@@ -42,6 +42,17 @@ class Database
                 return $row["$element"];
             }
         } else {
+            echo "0 results";
+        }
+    }
+
+    public function getElementFromQuery($result, $element)
+    {
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                return $row["$element"];
+            }
+        } else {
             return "0 results";
         }
     }
@@ -141,18 +152,34 @@ class Database
 
     public function addTurn($room_id, $whose_turn)
     {
-        $query = "INSERT INTO turn (room_id, whose_turn) values (112, 'Aziz');";
+        $query = "INSERT INTO turn (room_id, whose_turn) values ($room_id, '$whose_turn');";
         $this->db->query($query);
     }
 
     public function getTurnByRoomId($room_id)
     {
         $query = "SELECT whose_turn from turn where room_id = $room_id;";
-        return $this->getElementFromResult($this->db->query($query), 'whose_turn');
+        return $this->getElementFromQuery($this->db->query($query), 'whose_turn');
     }
 
-    public function deleteTurnByRoomId($room_id){
+    public function getCreatorByRoomId($room_id){
+        $query = "SELECT creator_name from room where id =  $room_id;";
+        $result = $this->getElementFromResult($this->db->query($query), "creator_name");
+
+        if ($result != "") {
+            return $result;
+        }
+        return null;
+    }
+
+    public function deleteTurnByRoomId($room_id)
+    {
         $query = "DELETE from turn where room_id = $room_id;";
         $this->db->query($query);
-}
+    }
+
+    public function updateTurn($room_id, $whose_turn){
+        $query = "UPDATE turn set whose_turn = '$whose_turn' where room_id = $room_id;";
+        $this->db->query($query);
+    }
 }

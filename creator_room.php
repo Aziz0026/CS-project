@@ -25,26 +25,26 @@ $joiner = null;
 
 if (isset($_POST["username"])) {
 //    if (!$db->checkForName($_POST["username"])) {
-        $row = null;
-        $creator_name = $_POST["username"];
+    $row = null;
+    $creator_name = $_POST["username"];
 
-        $creator = $creator_name;
+    $creator = $creator_name;
 
-        if (!$db->checkRoomForExisting($creator_name)) {
-            $db->createRoom($creator_name);
-
-            $room = $db->getElementFromResult($db->roomIdByName($creator_name), "id");
-
-            for ($i = 0; $i < 9; $i++) {
-                $db->createCell($room, $i);
-            }
-
-            $db->addTurn($room, $creator_name);
-        }
+    if (!$db->checkRoomForExisting($creator_name)) {
+        $db->createRoom($creator_name);
 
         $room = $db->getElementFromResult($db->roomIdByName($creator_name), "id");
 
-        $joiner = $db->getElementFromResult($db->getRoomById($room), "joiner_name");
+        for ($i = 0; $i < 9; $i++) {
+            $db->createCell($room, $i);
+        }
+
+        $db->addTurn($room, $creator_name);
+    }
+
+    $room = $db->getElementFromResult($db->roomIdByName($creator_name), "id");
+
+    $joiner = $db->getElementFromResult($db->getRoomById($room), "joiner_name");
 //    } else {
 //        echo "<script>openPage('multiplayer.php','creator_room.php'); alert('Please, choose another name. This name is already in usage. Create new one:)');</script>";
 //    }
@@ -143,5 +143,45 @@ if (isset($_POST["username"])) {
                 }
             }
         });
+    };
+</script>
+
+<script>
+    let anotherTimer = setInterval(myTimer, 500);
+
+    function myTimer() {
+        jQuery.ajax({
+                type: "POST",
+                url: 'update_grid.php',
+                dataType: 'json',
+                data: {functionname: 'update', arguments: [getTextById('room'), getTextById('player_name')]},
+
+                success: function (obj, textstatus) {
+                    if (!('error' in obj)) {
+                        yourVariable = obj.result;
+
+                        console.log(yourVariable);
+
+                        if (yourVariable !== "") {
+                            redraw(yourVariable);
+
+                            document.getElementById("0").onclick = null;
+                            document.getElementById("1").onclick = null;
+                            document.getElementById("2").onclick = null;
+                            document.getElementById("3").onclick = null;
+                            document.getElementById("4").onclick = null;
+                            document.getElementById("5").onclick = null;
+                            document.getElementById("6").onclick = null;
+                            document.getElementById("7").onclick = null;
+                            document.getElementById("8").onclick = null;
+                        } else {
+                            //
+                        }
+                    } else {
+                        console.log(obj.error);
+                    }
+                }
+            }
+        );
     };
 </script>
