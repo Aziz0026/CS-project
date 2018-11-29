@@ -33,6 +33,7 @@ if (!isset($aResult['error'])) {
                 } else if ($shape == "O") {
                     $db->updateTurn($room_id, $db->getCreatorByRoomId($room_id));
                 }
+
                 $result = $db->getPositionsOfGrid($room_id);
 
                 $aResult['result'] = $result;

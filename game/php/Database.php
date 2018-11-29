@@ -53,7 +53,7 @@ class Database
                 return $row["$element"];
             }
         } else {
-            return "0 results";
+            echo "0 results";
         }
     }
 
@@ -159,7 +159,7 @@ class Database
     public function getTurnByRoomId($room_id)
     {
         $query = "SELECT whose_turn from turn where room_id = $room_id;";
-        return $this->getElementFromQuery($this->db->query($query), 'whose_turn');
+        return $this->getElementFromResult($this->db->query($query), 'whose_turn');
     }
 
     public function getCreatorByRoomId($room_id){

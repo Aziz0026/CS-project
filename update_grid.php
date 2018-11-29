@@ -25,11 +25,15 @@ if (!isset($aResult['error'])) {
 
                 $db = new Database();
 
-                if ($db->getTurnByRoomId($room) != $player_name) {
-                    $aResult['result'] = $db->getPositionsOfGrid($room);
+                $player_turn = $db->getTurnByRoomId($room);
+
+                if ($player_turn == $player_name) {
+                    $aResult['result'][0] = "";
+                    $aResult['result'][1] = $db->getPositionsOfGrid($room);
                 } else {
-                    $aResult['result'] = "";
+                    $aResult['result'][0] = $db->getPositionsOfGrid($room);
                 }
+
             }
             break;
 

@@ -107,33 +107,27 @@ if (isset($_POST["joiner_name"])) {
 <script>
     let timer = setInterval(myTimer, 500);
 
+    let player_name = getTextById('player_name').replace(/\s/g, '');
+
     function myTimer() {
         jQuery.ajax({
                 type: "POST",
                 url: 'update_grid.php',
                 dataType: 'json',
-                data: {functionname: 'update', arguments: [getTextById('room'), getTextById('player_name')]},
+                data: {functionname: 'update', arguments: [getTextById('room'), player_name]},
 
                 success: function (obj, textstatus) {
                     if (!('error' in obj)) {
-                        yourVariable = obj.result;
+                        yourVariable = obj.result[0];
 
                         console.log(yourVariable);
 
                         if (yourVariable !== "") {
                             redraw(yourVariable);
-
-                            document.getElementById("0").onclick = null;
-                            document.getElementById("1").onclick = null;
-                            document.getElementById("2").onclick = null;
-                            document.getElementById("3").onclick = null;
-                            document.getElementById("4").onclick = null;
-                            document.getElementById("5").onclick = null;
-                            document.getElementById("6").onclick = null;
-                            document.getElementById("7").onclick = null;
-                            document.getElementById("8").onclick = null;
                         } else {
-                            //
+                            redraw(obj.result[1]);
+
+                            reloadOnClickMethods('O');
                         }
                     } else {
                         console.log(obj.error);
