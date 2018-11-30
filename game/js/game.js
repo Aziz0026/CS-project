@@ -350,6 +350,59 @@ function setShape(index, shape) {
                 redraw(grid);
 
                 blockCells();
+
+                increment();
+            } else {
+                console.log(obj.error);
+            }
+        }
+    });
+};
+
+function increment() {
+    let room_id = getTextById('room');
+
+    jQuery.ajax({
+        type: "POST",
+        url: 'increment.php',
+        dataType: 'json',
+        data: {functionname: 'increment', arguments: [room_id]},
+
+        success: function (obj, textstatus) {
+            if (!('error' in obj)) {
+                let $result = obj.result;
+
+                if ($result) {
+                    console.log("all right");
+                }
+            } else {
+                console.log(obj.error);
+            }
+        }
+    });
+}
+
+function checkForMoves() {
+    let room_id = getTextById('room');
+
+    jQuery.ajax({
+        type: "POST",
+        url: 'check_for_draw.php',
+        dataType: 'json',
+        data: {functionname: 'check_for', arguments: [room_id]},
+
+        success: function (obj, textstatus) {
+            if (!('error' in obj)) {
+                let $result = obj.result;
+
+                if ($result) {
+                    console.log("it is draw");
+                    blockCells();
+                    return true;
+                } else {
+                    console.log("something went wrong");
+                    return false;
+                }
             } else {
                 console.log(obj.error);
             }

@@ -130,9 +130,8 @@ if (isset($_POST["joiner_name"])) {
 
                                 blockCells();
                             } else {
-
+                                checkForMoves();
                             }
-
                             redraw(yourVariable);
                         } else {
                             redraw(obj.result[1]);
@@ -143,6 +142,8 @@ if (isset($_POST["joiner_name"])) {
                                 blockCells();
                             } else {
                                 reloadOnClickMethods('O');
+
+                                checkForMoves();
                             }
                         }
 

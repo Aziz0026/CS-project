@@ -171,7 +171,7 @@ if (!$db->checkForName($_POST["username"])) {
 
                                 blockCells();
                             } else {
-
+                                checkForMoves();
                             }
                             redraw(yourVariable);
                         } else {
@@ -183,6 +183,8 @@ if (!$db->checkForName($_POST["username"])) {
                                 blockCells();
                             } else {
                                 reloadOnClickMethods('X');
+
+                                checkForMoves();
                             }
                         }
                     } else {
