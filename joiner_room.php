@@ -122,15 +122,13 @@ if (isset($_POST["joiner_name"])) {
                     if (!('error' in obj)) {
                         yourVariable = obj.result[0];
 
-                        console.log(yourVariable);
-
                         if (yourVariable !== "") {
                             if (checkForBothWin(yourVariable)) {
                                 console.log("Win");
 
                                 blockCells();
                             } else {
-                                checkForMoves();
+                                checkForMoves(getTextById('room'));
                             }
                             redraw(yourVariable);
                         } else {
@@ -143,7 +141,7 @@ if (isset($_POST["joiner_name"])) {
                             } else {
                                 reloadOnClickMethods('O');
 
-                                checkForMoves();
+                                checkForMoves(getTextById('room'));
                             }
                         }
 

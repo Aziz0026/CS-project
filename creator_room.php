@@ -23,31 +23,33 @@ $room = null;
 $creator = null;
 $joiner = null;
 
-//if (isset($_POST["username"])) {
-if (!$db->checkForName($_POST["username"])) {
-    $row = null;
-    $creator_name = $_POST["username"];
+if (isset($_POST["username"])) {
+    if (!$db->checkForName($_POST["username"])) {
+        $row = null;
+        $creator_name = $_POST["username"];
 
-    $creator = $creator_name;
+        $creator = $creator_name;
 
-    if (!$db->checkRoomForExisting($creator_name)) {
-        $db->createRoom($creator_name);
+        if (!$db->checkRoomForExisting($creator_name)) {
+            $db->createRoom($creator_name);
+
+            $room = $db->getElementFromResult($db->roomIdByName($creator_name), "id");
+
+            for ($i = 0; $i < 9; $i++) {
+                $db->createCell($room, $i);
+            }
+
+            $db->addTurn($room, $creator_name);
+
+            $db->createScore($room);
+        }
 
         $room = $db->getElementFromResult($db->roomIdByName($creator_name), "id");
 
-        for ($i = 0; $i < 9; $i++) {
-            $db->createCell($room, $i);
-        }
-
-        $db->addTurn($room, $creator_name);
+        $joiner = $db->getElementFromResult($db->getRoomById($room), "joiner_name");
+    } else {
+        echo "<script>openPage('multiplayer.php','creator_room.php'); alert('Please, choose another name. This name is already in usage. Create new one:)');</script>";
     }
-
-    $room = $db->getElementFromResult($db->roomIdByName($creator_name), "id");
-
-    $joiner = $db->getElementFromResult($db->getRoomById($room), "joiner_name");
-//    } else {
-//        echo "<script>openPage('multiplayer.php','creator_room.php'); alert('Please, choose another name. This name is already in usage. Create new one:)');</script>";
-//    }
 }
 
 ?>
@@ -162,8 +164,6 @@ if (!$db->checkForName($_POST["username"])) {
                     if (!('error' in obj)) {
                         yourVariable = obj.result[0];
 
-                        console.log(yourVariable);
-
                         if (yourVariable !== "") {
 
                             if (checkForBothWin(yourVariable)) {
@@ -171,7 +171,8 @@ if (!$db->checkForName($_POST["username"])) {
 
                                 blockCells();
                             } else {
-                                checkForMoves();
+
+                                checkForMoves(getTextById('room'));
                             }
                             redraw(yourVariable);
                         } else {
@@ -184,7 +185,7 @@ if (!$db->checkForName($_POST["username"])) {
                             } else {
                                 reloadOnClickMethods('X');
 
-                                checkForMoves();
+                                checkForMoves(getTextById('room'));
                             }
                         }
                     } else {

@@ -196,4 +196,22 @@ class Database
         $query = "update turn set moves = moves + 1 where room_id = $room_id;";
         $this->db->query($query);
     }
+
+    public function createScore($room_id)
+    {
+        $query = "insert into score (room_id) values ($room_id);";
+        $this->db->query($query);
+    }
+
+    public function destroyScore($room_id)
+    {
+        $query = "delete from score where room_id = $room_id;";
+        $this->db->query($query);
+    }
+
+    public function addDrawScore($room_id)
+    {
+        $query = "update score set draw = draw + 1 where room_id = $room_id;";
+        $this->db->query($query);
+    }
 }

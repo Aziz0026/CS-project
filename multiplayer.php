@@ -22,8 +22,9 @@ if (isset($_POST["finish"])) {
 
     $db->deleteTurnByRoomId($room_id);
 
-    $db->destroyRoom($room_id);
+    $db->destroyScore($room_id);
 
+    $db->destroyRoom($room_id);
 } else if (isset($_POST["room_id"])) {
     $db->removeJoiner($_POST["room_id"]);
 }

@@ -15,7 +15,7 @@ if (!isset($_POST['arguments'])) {
 
 if (!isset($aResult['error'])) {
     switch ($_POST['functionname']) {
-        case 'check_for':
+        case 'get':
             if (!is_array($_POST['arguments']) || (count($_POST['arguments']) < 1)) {
                 $aResult['error'] = 'Error in arguments!';
             } else {
@@ -23,13 +23,7 @@ if (!isset($aResult['error'])) {
 
                 $db = new Database();
 
-                $number = $db->getNumberOfMoves($room_id);
-
-                if ($number == 9) {
-                    $aResult['result'] = true;
-                } else {
-                    $aResult['result'] = false;
-                }
+                $aResult['result'] = $db->getNumberOfMoves($room_id);;
             }
             break;
 

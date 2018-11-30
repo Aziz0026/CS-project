@@ -7,6 +7,8 @@ let game = {
     turn: 'computer',
 };
 
+let draw = true;
+
 const WIN_MOVES = [
     [0, 1, 2],
     [3, 4, 5],
@@ -352,12 +354,41 @@ function setShape(index, shape) {
                 blockCells();
 
                 increment();
+
+                getNumberOfMoves(room_id);
             } else {
                 console.log(obj.error);
             }
         }
     });
 };
+
+function getNumberOfMoves(room_id) {
+
+    jQuery.ajax({
+        type: "POST",
+        url: 'get_number_of_moves.php',
+        dataType: 'json',
+        data: {functionname: 'get', arguments: [room_id]},
+
+        success: function (obj, textstatus) {
+            if (!('error' in obj)) {
+                let $result = obj.result;
+
+                console.log($result);
+
+                if ($result != 9) {
+                    console.log("Error");
+                } else {
+                    addDrawScore();
+                }
+
+            } else {
+                console.log(obj.error);
+            }
+        }
+    });
+}
 
 function increment() {
     let room_id = getTextById('room');
@@ -373,7 +404,6 @@ function increment() {
                 let $result = obj.result;
 
                 if ($result) {
-                    console.log("all right");
                 }
             } else {
                 console.log(obj.error);
@@ -382,9 +412,7 @@ function increment() {
     });
 }
 
-function checkForMoves() {
-    let room_id = getTextById('room');
-
+function checkForMoves(room_id) {
     jQuery.ajax({
         type: "POST",
         url: 'check_for_draw.php',
@@ -398,10 +426,33 @@ function checkForMoves() {
                 if ($result) {
                     console.log("it is draw");
                     blockCells();
-                    return true;
                 } else {
-                    console.log("something went wrong");
-                    return false;
+                    console.log("it is not draw");
+                }
+            } else {
+                console.log(obj.error);
+            }
+        }
+    });
+}
+
+function addDrawScore() {
+    let room_id = getTextById('room');
+
+    jQuery.ajax({
+        type: "POST",
+        url: 'add_draw_score.php',
+        dataType: 'json',
+        data: {functionname: 'add', arguments: [room_id]},
+
+        success: function (obj, textstatus) {
+            if (!('error' in obj)) {
+                let $result = obj.result;
+
+                if ($result) {
+                    console.log("added");
+                } else {
+                    console.log("not added");
                 }
             } else {
                 console.log(obj.error);
