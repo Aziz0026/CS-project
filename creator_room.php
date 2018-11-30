@@ -23,8 +23,8 @@ $room = null;
 $creator = null;
 $joiner = null;
 
-if (isset($_POST["username"])) {
-//    if (!$db->checkForName($_POST["username"])) {
+//if (isset($_POST["username"])) {
+if (!$db->checkForName($_POST["username"])) {
     $row = null;
     $creator_name = $_POST["username"];
 
@@ -165,11 +165,25 @@ if (isset($_POST["username"])) {
                         console.log(yourVariable);
 
                         if (yourVariable !== "") {
+
+                            if (checkForBothWin(yourVariable)) {
+                                console.log("Win");
+
+                                blockCells();
+                            } else {
+
+                            }
                             redraw(yourVariable);
                         } else {
                             redraw(obj.result[1]);
 
-                            reloadOnClickMethods('X');
+                            if (checkForBothWin(obj.result[1])) {
+                                console.log("Win");
+
+                                blockCells();
+                            } else {
+                                reloadOnClickMethods('X');
+                            }
                         }
                     } else {
                         console.log(obj.error);

@@ -33,7 +33,6 @@ if (!isset($aResult['error'])) {
                 } else {
                     $aResult['result'][0] = $db->getPositionsOfGrid($room);
                 }
-
             }
             break;
 

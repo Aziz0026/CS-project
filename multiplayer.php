@@ -2,12 +2,13 @@
 <html>
 <head>
     <title>Multiplayer</title>
+    <script src="/game/jQuery/jquery-3.3.1.js"></script>
+
     <link rel="stylesheet" href="/game/css/index.css">
     <link rel="stylesheet" href="/game/css/general.css">
     <link rel="stylesheet" href="/game/css/name_form.css">
 
     <?php include 'game/php/Database.php'; ?>
-
     <script src="/game/js/events.js"></script>
 </head>
 
@@ -26,9 +27,9 @@ if (isset($_POST["finish"])) {
 } else if (isset($_POST["room_id"])) {
     $db->removeJoiner($_POST["room_id"]);
 }
-
 ?>
 
+<body>
 <script>
     document.write('<div id="back"><h3 class="success" onclick="openPage(\'menu.html\', \'multiplayer.php\')">Back to menu</h3></div>');
 </script>
@@ -49,7 +50,6 @@ if (isset($_POST["finish"])) {
 </div>
 
 <div id="id01" class="modal">
-
     <form class="modal-content animate" method="post" action="http://127.0.0.1:3000/creator_room.php">
         <div class="container">
             <label><b>Please, enter your name :)</b></label>
@@ -60,19 +60,16 @@ if (isset($_POST["finish"])) {
 </div>
 
 <div id="id02" class="modal">
-
     <form class="modal-content animate" method="post" action="http://127.0.0.1:3000/joiner_room.php">
         <div class="container">
             <label><b>Please, enter room that you want to join :)</b></label>
             <input type="text" placeholder="room ID" name="room_id" required>
             <label><b>Please, enter your name :)</b></label>
-            <input type="text" placeholder="name" name="joiner_name" required>
+            <input type="text" id="j_name" placeholder="name" name="joiner_name" required>
             <button type="submit">Submit</button>
         </div>
     </form>
 </div>
-
-
 </body>
 
 <script>
@@ -87,7 +84,7 @@ if (isset($_POST["finish"])) {
         } else if (event.target === modal2) {
             modal2.style.display = "none";
         }
-    }
+    };
 </script>
 </html>
 

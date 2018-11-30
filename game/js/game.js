@@ -202,10 +202,10 @@ function minimax(newBoard, player) {
 
     let availSpots = checkingForEmptyCells(newBoard);
 
-    if (winning(newBoard, game.user)) {
+    if (winning(newBoard, game.user, false)) {
         return {score: -10};
     }
-    else if (winning(newBoard, game.computer)) {
+    else if (winning(newBoard, game.computer, false)) {
         return {score: 10};
     }
     else if (availSpots.length === 0) {
@@ -291,16 +291,29 @@ function changeTitle(titleName) {
     document.write('<head><title>' + titleName + '</title></head>');
 }
 
-function winning(board, playerChar) {
+function winning(board, playerChar, flag) {
     let counter = 0;
     let winMove;
     while (counter <= 7) {
         winMove = WIN_MOVES[counter];
 
         if (board[winMove[0]] === playerChar && board[winMove[1]] === playerChar && board[winMove[2]] === playerChar) {
+            if (flag) {
+                changeCellsBackground(winMove);
+                return true;
+            }
             return true;
         }
         counter++;
+    }
+    return false;
+}
+
+function checkForBothWin(board) {
+    if (winning(board, 'X', true)) {
+        return true;
+    } else if (winning(board, 'O', true)) {
+        return true;
     }
     return false;
 }

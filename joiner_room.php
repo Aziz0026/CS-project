@@ -24,17 +24,17 @@ $creator = null;
 $joiner = null;
 
 if (isset($_POST["joiner_name"])) {
-//    if (!$db->checkForName($_POST["joiner_name"])) {
-    $room = $_POST["room_id"];
+    if (!$db->checkForName($_POST["joiner_name"])) {
+        $room = $_POST["room_id"];
 
-    $creator = $db->getElementFromResult($db->getRoomById($room), "creator_name");
+        $creator = $db->getElementFromResult($db->getRoomById($room), "creator_name");
 
-    $joiner = $_POST["joiner_name"];
+        $joiner = $_POST["joiner_name"];
 
-    $db->addJoinerToRoom($_POST["joiner_name"], $room);
-//    } else {
-//        echo "<script>openPage('multiplayer.php','joiner_room.php'); alert('Please, choose another name. This name is already in usage. Create a new one :)');</script>";
-//    }
+        $db->addJoinerToRoom($_POST["joiner_name"], $room);
+    } else {
+        echo "<script>openPage('multiplayer.php','joiner_room.php'); alert('Please, choose another name. This name is already in usage. Create a new one :)');</script>";
+    }
 }
 
 ?>
@@ -125,12 +125,28 @@ if (isset($_POST["joiner_name"])) {
                         console.log(yourVariable);
 
                         if (yourVariable !== "") {
+                            if (checkForBothWin(yourVariable)) {
+                                console.log("Win");
+
+                                blockCells();
+                            } else {
+
+                            }
+
                             redraw(yourVariable);
                         } else {
                             redraw(obj.result[1]);
 
-                            reloadOnClickMethods('O');
+                            if (checkForBothWin(obj.result[1])) {
+                                console.log("Win");
+
+                                blockCells();
+                            } else {
+                                reloadOnClickMethods('O');
+                            }
                         }
+
+
                     } else {
                         console.log(obj.error);
                     }

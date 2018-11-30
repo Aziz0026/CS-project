@@ -162,7 +162,8 @@ class Database
         return $this->getElementFromResult($this->db->query($query), 'whose_turn');
     }
 
-    public function getCreatorByRoomId($room_id){
+    public function getCreatorByRoomId($room_id)
+    {
         $query = "SELECT creator_name from room where id =  $room_id;";
         $result = $this->getElementFromResult($this->db->query($query), "creator_name");
 
@@ -178,8 +179,21 @@ class Database
         $this->db->query($query);
     }
 
-    public function updateTurn($room_id, $whose_turn){
+    public function updateTurn($room_id, $whose_turn)
+    {
         $query = "UPDATE turn set whose_turn = '$whose_turn' where room_id = $room_id;";
+        $this->db->query($query);
+    }
+
+    public function getNumberOfMoves($room_id)
+    {
+        $query = "select moves from turn where room_id = $room_id;";
+        return $this->getElementFromResult($this->db->query($query), 'moves');
+    }
+
+    public function incrementNumberOfMoves($room_id)
+    {
+        $query = "update turn set moves = moves + 1 where room_id = $room_id;";
         $this->db->query($query);
     }
 }
