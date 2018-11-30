@@ -147,7 +147,7 @@ if (isset($_POST["username"])) {
 </script>
 
 <script>
-    let anotherTimer = setInterval(myTimer, 500);
+    setInterval(myTimer, 500);
 
     let player_name = getTextById('player_name').replace(/\s/g, '');
 

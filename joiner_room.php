@@ -87,6 +87,8 @@ if (isset($_POST["joiner_name"])) {
                 <li class="tic" id="8" onclick="setShape(8, 'O')">#</li>
             </ul>
             <script>
+                blockCells();
+
                 document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
             </script>
         </div>
@@ -105,7 +107,7 @@ if (isset($_POST["joiner_name"])) {
 </html>
 
 <script>
-    let timer = setInterval(myTimer, 500);
+    setInterval(myTimer, 500);
 
     let player_name = getTextById('player_name').replace(/\s/g, '');
 

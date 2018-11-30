@@ -307,13 +307,15 @@ function winning(board, playerChar) {
 
 function reloadOnClickMethods(shape) {
     for (let i = 0; i < 9; i++) {
-        prepareButton = function () {
-            document.getElementById(i.toString()).onclick = function () {
-                setShape(i, shape)
-            }
-        };
+        if (document.getElementById(i.toString()).textContent === "#") {
+            prepareButton = function () {
+                document.getElementById(i.toString()).onclick = function () {
+                    setShape(i, shape)
+                }
+            };
 
-        window.onload = prepareButton();
+            window.onload = prepareButton();
+        }
     }
 }
 
@@ -334,18 +336,22 @@ function setShape(index, shape) {
                 console.log(grid);
                 redraw(grid);
 
-                document.getElementById("0").onclick = null;
-                document.getElementById("1").onclick = null;
-                document.getElementById("2").onclick = null;
-                document.getElementById("3").onclick = null;
-                document.getElementById("4").onclick = null;
-                document.getElementById("5").onclick = null;
-                document.getElementById("6").onclick = null;
-                document.getElementById("7").onclick = null;
-                document.getElementById("8").onclick = null;
+                blockCells();
             } else {
                 console.log(obj.error);
             }
         }
     });
+}
+
+function blockCells() {
+    document.getElementById("0").onclick = null;
+    document.getElementById("1").onclick = null;
+    document.getElementById("2").onclick = null;
+    document.getElementById("3").onclick = null;
+    document.getElementById("4").onclick = null;
+    document.getElementById("5").onclick = null;
+    document.getElementById("6").onclick = null;
+    document.getElementById("7").onclick = null;
+    document.getElementById("8").onclick = null;
 }
