@@ -113,6 +113,12 @@ class Database
         $this->db->query($query);
     }
 
+    public function resetGrid($room_id)
+    {
+        $query = "update cell set shape = null where room_id = $room_id;";
+        $this->db->query($query);
+    }
+
     public function getPositionsOfGrid($room_id)
     {
         $result = [];
@@ -179,6 +185,12 @@ class Database
         $this->db->query($query);
     }
 
+    public function resetMoves($room_id)
+    {
+        $query = "UPDATE turn set moves = 0 where room_id = $room_id;";
+        $this->db->query($query);
+    }
+
     public function updateTurn($room_id, $whose_turn)
     {
         $query = "UPDATE turn set whose_turn = '$whose_turn' where room_id = $room_id;";
@@ -232,12 +244,14 @@ class Database
         return $this->getElementFromResult($this->db->query($query), 'draw');
     }
 
-    public function getCreatorScore($room_id){
+    public function getCreatorScore($room_id)
+    {
         $query = "select creator from score where room_id = $room_id;";
         return $this->getElementFromResult($this->db->query($query), 'creator');
     }
 
-    public function getJoinerScore($room_id){
+    public function getJoinerScore($room_id)
+    {
         $query = "select joiner from score where room_id = $room_id;";
         return $this->getElementFromResult($this->db->query($query), 'joiner');
     }

@@ -102,7 +102,7 @@ if (isset($_POST["username"])) {
             </ul>
 
             <script>
-                document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
+                document.write('<footer><button id="reset" onclick="resetGrid()">Reset</button></footer>' + '</div>');
             </script>
         </div>
 

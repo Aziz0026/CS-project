@@ -88,8 +88,6 @@ if (isset($_POST["joiner_name"])) {
             </ul>
             <script>
                 blockCells();
-
-                document.write('<footer><button id="reset" onclick="reset()">Reset</button></footer>' + '</div>');
             </script>
         </div>
 

@@ -576,6 +576,35 @@ function getGrid(room_id) {
     });
 }
 
+function resetGrid() {
+    let room_id = getTextById('room');
+
+    jQuery.ajax({
+        type: "POST",
+        url: 'reset_grid.php',
+        dataType: 'json',
+        data: {functionname: 'reset', arguments: [room_id]},
+
+        success: function (obj, textstatus) {
+            if (!('error' in obj)) {
+
+                if (obj.result = "reset made") {
+                    let counter = 0;
+                    while (counter !== 9) {
+                        document.getElementById(counter.toString()).textContent = '#';
+                        document.getElementById(counter.toString()).style.backgroundColor = 'black';
+                        counter++;
+                    }
+
+                    reloadOnClickMethods();
+                }
+            } else {
+                console.log(obj.error);
+            }
+        }
+    });
+}
+
 function blockCells() {
     document.getElementById("0").onclick = null;
     document.getElementById("1").onclick = null;
