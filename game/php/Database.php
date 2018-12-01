@@ -225,4 +225,20 @@ class Database
 
         $this->db->query($query);
     }
+
+    public function getDraw($room_id)
+    {
+        $query = "select draw from score where room_id = $room_id;";
+        return $this->getElementFromResult($this->db->query($query), 'draw');
+    }
+
+    public function getCreatorScore($room_id){
+        $query = "select creator from score where room_id = $room_id;";
+        return $this->getElementFromResult($this->db->query($query), 'creator');
+    }
+
+    public function getJoinerScore($room_id){
+        $query = "select joiner from score where room_id = $room_id;";
+        return $this->getElementFromResult($this->db->query($query), 'joiner');
+    }
 }

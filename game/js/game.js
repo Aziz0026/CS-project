@@ -20,6 +20,8 @@ const WIN_MOVES = [
     [2, 4, 6]
 ];
 
+let threeCells = null;
+
 
 let score = {
     user: 0,
@@ -105,7 +107,7 @@ function gameStatus() {
     let counter = 0;
     while (counter !== 8) {
         if (checkForWin(WIN_MOVES[counter])) {
-            changeCellsBackground(WIN_MOVES[counter]);
+            changeCellsBackground(WIN_MOVES[counter], '#14e715');
             incrementScore();
             setScore();
             changeGameStatus('off');
@@ -153,11 +155,11 @@ function reset() {
     startOfTheGame();
 }
 
-function changeCellsBackground(array) {
+function changeCellsBackground(array, color) {
     let counter = 0;
     while (counter !== 3) {
         let element = getElementById(array[counter]);
-        element.style.backgroundColor = '#14e715';
+        element.style.backgroundColor = color;
         counter++;
     }
 }
@@ -301,7 +303,7 @@ function winning(board, playerChar, flag) {
 
         if (board[winMove[0]] === playerChar && board[winMove[1]] === playerChar && board[winMove[2]] === playerChar) {
             if (flag) {
-                changeCellsBackground(winMove);
+                changeCellsBackground(winMove, '#14e715');
                 return true;
             }
             return true;

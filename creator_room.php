@@ -120,6 +120,46 @@ if (isset($_POST["username"])) {
 </html>
 
 <script>
+    setInterval(refreshScores, 500);
+
+    function refreshScores() {
+        jQuery.ajax({
+            type: "POST",
+            url: 'refresh_score.php',
+            dataType: 'json',
+            data: {functionname: 'refresh', arguments: [getTextById('room')]},
+
+            success: function (obj, textstatus) {
+                if (!('error' in obj)) {
+                    yourVariable = obj.result;
+
+                    if (yourVariable !== null) {
+                        let dr = yourVariable[0];
+                        let cr = yourVariable[1];
+                        let jn = yourVariable[2];
+
+                        let computer = document.getElementById('computer').textContent;
+
+
+                        document.getElementById('user').innerText = '<?php echo $creator . "(X): " ?>' + cr;
+
+                        if (!computer == "Waiting for player... ") {
+                            document.getElementById('computer').innerText = jn;
+                        }
+
+                        document.getElementById('draw').innerText = 'Draw: ' + dr;
+                    }
+
+                    console.log(yourVariable);
+                } else {
+                    console.log(obj.error);
+                }
+            }
+        });
+    };
+</script>
+
+<script>
     let timer = setInterval(myTimer, 1000);
 
     function myTimer() {

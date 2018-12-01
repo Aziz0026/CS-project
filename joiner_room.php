@@ -107,6 +107,40 @@ if (isset($_POST["joiner_name"])) {
 </html>
 
 <script>
+    setInterval(refreshScores, 500);
+
+    function refreshScores() {
+        jQuery.ajax({
+            type: "POST",
+            url: 'refresh_score.php',
+            dataType: 'json',
+            data: {functionname: 'refresh', arguments: [getTextById('room')]},
+
+            success: function (obj, textstatus) {
+                if (!('error' in obj)) {
+                    yourVariable = obj.result;
+
+                    if (yourVariable !== null) {
+                        let dr = yourVariable[0];
+                        let cr = yourVariable[1];
+                        let jn = yourVariable[2];
+
+
+                        document.getElementById('user').innerText = '<?php echo $creator . "(X): " ?>' + cr;
+                        document.getElementById('computer').innerText = '<?php echo $joiner . "(O): " ?>' + jn;
+                        document.getElementById('draw').innerText = 'Draw: ' + dr;
+                    }
+
+                    console.log(yourVariable);
+                } else {
+                    console.log(obj.error);
+                }
+            }
+        });
+    };
+</script>
+
+<script>
     setInterval(myTimer, 500);
 
     let player_name = getTextById('player_name').replace(/\s/g, '');
