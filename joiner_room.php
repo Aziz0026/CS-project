@@ -88,6 +88,8 @@ if (isset($_POST["joiner_name"])) {
             </ul>
             <script>
                 blockCells();
+
+                document.write('<footer><button id="reset" onclick="defaultCells();">Reset</button></footer>' + '</div>');
             </script>
         </div>
 
@@ -158,6 +160,8 @@ if (isset($_POST["joiner_name"])) {
                             if (checkForBothWin(yourVariable)) {
                                 console.log("Win");
 
+                                defaultCells();
+
                                 blockCells();
                             } else {
                                 checkForMoves(getTextById('room'));
@@ -168,6 +172,8 @@ if (isset($_POST["joiner_name"])) {
 
                             if (checkForBothWin(obj.result[1])) {
                                 console.log("Win");
+
+                                defaultCells();
 
                                 blockCells();
                             } else {
