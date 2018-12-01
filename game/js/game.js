@@ -334,6 +334,15 @@ function reloadOnClickMethods(shape) {
     }
 }
 
+function getNameOfWinner(board) {
+    if (winning(board, 'X', true)) {
+        return "X";
+    } else if (winning(board, 'O', true)) {
+        return "O";
+    }
+    return false;
+}
+
 function setShape(index, shape) {
     let room_id = getTextById('room');
     let player_name = getTextById('player_name').replace(/\s/g, '');
@@ -348,7 +357,6 @@ function setShape(index, shape) {
             if (!('error' in obj)) {
                 let grid = obj.result;
 
-                console.log(grid);
                 redraw(grid);
 
                 blockCells();
@@ -356,6 +364,8 @@ function setShape(index, shape) {
                 increment();
 
                 getNumberOfMoves(room_id);
+
+                getGrid(room_id);
             } else {
                 console.log(obj.error);
             }
@@ -375,7 +385,6 @@ function getNumberOfMoves(room_id) {
             if (!('error' in obj)) {
                 let $result = obj.result;
 
-                console.log($result);
 
                 if ($result != 9) {
                     console.log("Error");
@@ -436,6 +445,52 @@ function checkForMoves(room_id) {
     });
 }
 
+function addJoinerScore(room_id) {
+    jQuery.ajax({
+        type: "POST",
+        url: 'add_win_score.php',
+        dataType: 'json',
+        data: {functionname: 'add', arguments: [room_id, "joiner"]},
+
+        success: function (obj, textstatus) {
+            if (!('error' in obj)) {
+                let $result = obj.result;
+
+                if ($result) {
+                    console.log("joiner added");
+                } else {
+                    console.log($result);
+                }
+            } else {
+                console.log(obj.error);
+            }
+        }
+    });
+}
+
+function addCreatorScore(room_id) {
+    jQuery.ajax({
+        type: "POST",
+        url: 'add_win_score.php',
+        dataType: 'json',
+        data: {functionname: 'add', arguments: [room_id, "creator"]},
+
+        success: function (obj, textstatus) {
+            if (!('error' in obj)) {
+                let $result = obj.result;
+
+                if ($result) {
+                    console.log("creator added");
+                } else {
+                    console.log($result);
+                }
+            } else {
+                console.log(obj.error);
+            }
+        }
+    });
+}
+
 function addDrawScore() {
     let room_id = getTextById('room');
 
@@ -454,6 +509,38 @@ function addDrawScore() {
                 } else {
                     console.log("not added");
                 }
+            } else {
+                console.log(obj.error);
+            }
+        }
+    });
+}
+
+function getGrid(room_id) {
+
+    jQuery.ajax({
+        type: "POST",
+        url: 'get_grid.php',
+        dataType: 'json',
+        data: {functionname: 'get', arguments: [room_id]},
+
+        success: function (obj, textstatus) {
+            if (!('error' in obj)) {
+                let $result = obj.result;
+
+                console.log("Grid:");
+                console.log($result);
+
+                getNumberOfMoves(room_id);
+
+                if (getNameOfWinner($result) == "X") {
+                    addCreatorScore(room_id);
+                } else if (getNameOfWinner($result) == "O") {
+                    addJoinerScore(room_id);
+                } else {
+                    console.log("here is the error");
+                }
+
             } else {
                 console.log(obj.error);
             }

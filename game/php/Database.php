@@ -214,4 +214,15 @@ class Database
         $query = "update score set draw = draw + 1 where room_id = $room_id;";
         $this->db->query($query);
     }
+
+    public function addWinScore($room_id, $shape)
+    {
+        if ($shape == "X") {
+            $query = "update score set creator = creator + 1 where room_id = $room_id;";
+        } else if ($shape == "O") {
+            $query = "update score set joiner = joiner + 1 where room_id = $room_id;";
+        }
+
+        $this->db->query($query);
+    }
 }

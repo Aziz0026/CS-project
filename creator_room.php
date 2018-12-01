@@ -168,7 +168,6 @@ if (isset($_POST["username"])) {
 
                             if (checkForBothWin(yourVariable)) {
                                 console.log("Win");
-
                                 blockCells();
                             } else {
 
