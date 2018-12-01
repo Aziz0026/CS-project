@@ -138,14 +138,9 @@ if (isset($_POST["username"])) {
                         let cr = yourVariable[1];
                         let jn = yourVariable[2];
 
-                        let computer = document.getElementById('computer').textContent;
-
-
                         document.getElementById('user').innerText = '<?php echo $creator . "(X): " ?>' + cr;
 
-                        if (!computer == "Waiting for player... ") {
-                            document.getElementById('computer').innerText = jn;
-                        }
+                        getJoinerName(jn);
 
                         document.getElementById('draw').innerText = 'Draw: ' + dr;
                     }

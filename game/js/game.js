@@ -518,6 +518,32 @@ function addDrawScore() {
     });
 }
 
+function getJoinerName(score) {
+    let room_id = getTextById('room');
+
+    jQuery.ajax({
+        type: "POST",
+        url: 'get_joiner_name.php',
+        dataType: 'json',
+        data: {functionname: 'get', arguments: [room_id]},
+
+        success: function (obj, textstatus) {
+            if (!('error' in obj)) {
+                let $result = obj.result;
+
+                if ($result == null) {
+                    document.getElementById('computer').innerText = 'Waiting for player...';
+                } else {
+                    document.getElementById('computer').innerText = $result + '(O): ' + score;
+
+                }
+            } else {
+                console.log(obj.error);
+            }
+        }
+    });
+}
+
 function getGrid(room_id) {
 
     jQuery.ajax({
