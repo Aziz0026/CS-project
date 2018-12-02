@@ -365,8 +365,6 @@ function setShape(index, shape) {
 
                 increment();
 
-                getNumberOfMoves(room_id);
-
                 getGrid(room_id);
             } else {
                 console.log(obj.error);
@@ -589,7 +587,7 @@ function resetGrid() {
             if (!('error' in obj)) {
 
                 if (obj.result = "reset made") {
-                    defaultCells();
+                    defaultCells(true);
 
                     reloadOnClickMethods();
                 }
@@ -600,10 +598,12 @@ function resetGrid() {
     });
 }
 
-function defaultCells() {
+function defaultCells(flag) {
     let counter = 0;
     while (counter !== 9) {
-        document.getElementById(counter.toString()).textContent = '#';
+        if (flag) {
+            document.getElementById(counter.toString()).textContent = '#';
+        }
         document.getElementById(counter.toString()).style.backgroundColor = 'black';
         counter++;
     }
