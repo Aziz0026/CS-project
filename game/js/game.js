@@ -303,8 +303,11 @@ function winning(board, playerChar, flag) {
 
         if (board[winMove[0]] === playerChar && board[winMove[1]] === playerChar && board[winMove[2]] === playerChar) {
             if (flag) {
-                changeCellsBackground(winMove, '#14e715');
-                return true;
+                if (playerChar == "X") {
+                    changeCellsBackground(winMove, '#14e715');
+                }else{
+                    changeCellsBackground(winMove, '#FF0000');
+                }
             }
             return true;
         }
@@ -313,7 +316,7 @@ function winning(board, playerChar, flag) {
     return false;
 }
 
-function checkForBothWin(board) {
+function checkForBothWin(board,) {
     if (winning(board, 'X', true)) {
         return true;
     } else if (winning(board, 'O', true)) {
